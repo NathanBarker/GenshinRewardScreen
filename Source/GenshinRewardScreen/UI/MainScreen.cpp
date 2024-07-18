@@ -15,7 +15,7 @@ void UMainScreen::NativeConstruct()
 		if (UCurrencyView* CurrencyView = Cast<UCurrencyView>(CurrencyHorizontalLayout->GetAllChildren()[i]))
 		{
 			CurrencyViews.Emplace(CurrencyView);
-			CurrencyView->InitCurrencyView(i);
+			CurrencyView->InitCurrencyView();
 		}
 		else
 		{

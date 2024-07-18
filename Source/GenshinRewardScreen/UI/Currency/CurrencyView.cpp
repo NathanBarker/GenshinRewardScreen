@@ -2,10 +2,14 @@
 
 #include "CurrencyView.h"
 
-void UCurrencyView::InitCurrencyView(const uint8 index)
+void UCurrencyView::NativePreConstruct()
 {
-	currencyPanelIndex = index;
-	SetCurrencyIconBrush(CurrencyTextures[index]);
+	Super::NativePreConstruct();
+	SetCurrencyIconBrush(IconTexture);
+}
+
+void UCurrencyView::InitCurrencyView() const
+{
 	SetCurrencyText(0);
 }
 

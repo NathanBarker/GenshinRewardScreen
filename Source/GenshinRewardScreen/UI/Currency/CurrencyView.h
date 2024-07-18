@@ -25,10 +25,12 @@ class GENSHINREWARDSCREEN_API UCurrencyView : public UCommonUserWidget
 	UPROPERTY(EditDefaultsOnly)
 	TArray<UTexture2D*> CurrencyTextures;
 
-	uint8 currencyPanelIndex = 0;
+	UPROPERTY(EditInstanceOnly)
+	UTexture2D* IconTexture;
 
 public:
-	void InitCurrencyView(const uint8 index);
+	void NativePreConstruct() override;
+	void InitCurrencyView() const;
 	void SetCurrencyIconBrush(UTexture2D* currencyIcon) const;
 	void SetCurrencyText(const uint8 currencyAmount) const;
 };
