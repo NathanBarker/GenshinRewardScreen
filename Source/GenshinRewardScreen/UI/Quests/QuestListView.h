@@ -6,6 +6,7 @@
 #include "CommonUserWidget.h"
 #include "Blueprint/IUserObjectListEntry.h"
 #include "Components/TextBlock.h"
+#include "GenshinRewardScreen/UI/Currency/CurrencyView.h"
 #include "QuestListView.generated.h"
 
 /**
@@ -20,6 +21,8 @@ protected:
 	// IUserObjectListEntry
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
 	// IUserObjectListEntry
+
+	void 
 
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UTextBlock> QuestTitle = nullptr;
