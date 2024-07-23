@@ -16,9 +16,3 @@ struct FQuest : public FTableRowBase
 	UPROPERTY(EditDefaultsOnly )
 	TArray<FString> Objectives;
 };
-
-
-class QuestModel
-{
-public:
-};
