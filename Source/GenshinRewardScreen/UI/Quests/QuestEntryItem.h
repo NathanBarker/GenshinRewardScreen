@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "QuestRewards.h"
 #include "UObject/Object.h"
 #include "QuestEntryItem.generated.h"
 
@@ -16,8 +17,19 @@ class GENSHINREWARDSCREEN_API UQuestEntryItem : public UObject
 
 public:
 	UPROPERTY()
-	FString QuestName;
+	FString Name;
 
 	UPROPERTY()
-	FString QuestDescription;
+	FString Description;
+	
+	TArray<TPair<FString, int>> Objectives;
+
+	UPROPERTY()
+	int Progress = 0;
+
+	UPROPERTY()
+	TArray<FReward> Rewards;
+
+	UPROPERTY()
+	int Experience = 0; 
 };

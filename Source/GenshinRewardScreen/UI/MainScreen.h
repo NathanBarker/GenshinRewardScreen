@@ -37,9 +37,37 @@ class GENSHINREWARDSCREEN_API UMainScreen : public UCommonActivatableWidget
 
 	UPROPERTY()
 	TArray<UQuestEntryItem*> QuestDataObjects;
+
+	UPROPERTY(EditDefaultsOnly)
+	int CrystalRewardMax = 0;
+
+	UPROPERTY(EditDefaultsOnly)
+	int RubyRewardMax = 0;
+
+	UPROPERTY(EditDefaultsOnly)
+	int PrimogenRewardMax = 0;
+
+	UPROPERTY(EditDefaultsOnly)
+	int CrystalRewardMin = 0;
+
+	UPROPERTY(EditDefaultsOnly)
+	int RubyRewardMin = 0;
+
+	UPROPERTY(EditDefaultsOnly)
+	int PrimogemRewardMin = 0;
+	
+	UPROPERTY(EditDefaultsOnly)
+	int ExperienceRewardMax = 0;
+
+	UPROPERTY(EditDefaultsOnly)
+	int ExperienceRewardMin = 0;
+
+	UPROPERTY(EditDefaultsOnly)
+	int MaxSubTaskAmount = 0;
 	
 	void GenerateQuestData();
 	void DisplayQuests();
+	static void AllocateCurrencyAmount(FReward& Reward, const int MaxAmount, const int MinAmount);
 
 protected:
 	virtual void NativeOnActivated() override;

@@ -9,5 +9,5 @@ void UQuestListView::NativeOnListItemObjectSet(UObject* ListItemObject)
 {
 	IUserObjectListEntry::NativeOnListItemObjectSet(ListItemObject);
 	UQuestEntryItem* Item = Cast<UQuestEntryItem>(ListItemObject);
-	QuestTitle->SetText(FText::FromString(Item->QuestName));
+	QuestTitle->SetText(FText::FromString(Item->Name));
 }
