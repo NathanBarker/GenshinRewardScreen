@@ -5,11 +5,9 @@
 UENUM()
 enum ECurrency : uint8
 {
-	None = 0,
-	
-	PrimoGem = 1,
-	Ruby = 2,
-	Crystal = 3,
+	PrimoGem = 0,
+	Ruby = 1,
+	Crystal = 2,
+
+	Num = 3
 };
-
-

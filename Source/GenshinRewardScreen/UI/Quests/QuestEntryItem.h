@@ -16,6 +16,7 @@ class GENSHINREWARDSCREEN_API UQuestEntryItem : public UObject
 	GENERATED_BODY()
 
 public:
+	UQuestEntryItem() = default;
 	UPROPERTY()
 	FString Name;
 

@@ -4,6 +4,7 @@
 #include "MainScreen.h"
 
 #include "Currency/CurrencyView.h"
+#include "GenshinRewardScreen/HelperClasses/QuestObjectiveData.h"
 #include "Quests/QuestEntryItem.h"
 #include "Quests/QuestRewards.h"
 
@@ -42,25 +43,23 @@ void UMainScreen::GenerateQuestData()
 		FQuest QuestEntryObject = *QuestDataTable->FindRow<FQuest>(QuestData, "");
 		QuestRows.Emplace(QuestEntryObject);
 	}
-	DisplayQuests();
+	InitialiseQuests();
 }
 
-void UMainScreen::DisplayQuests()
+void UMainScreen::InitialiseQuests()
 {
 	for (const FQuest& Quest : QuestRows)
 	{
 		UQuestEntryItem* QuestObject = NewObject<UQuestEntryItem>();
 		QuestObject->Name = Quest.Name;
 		QuestObject->Description = Quest.Description;
-
+		
 		TArray<TPair<FString, int>>* ObjectiveDetails = new TArray<TPair<FString, int>>;
 		for (int i = 0; i < Quest.Objectives.Num(); i++)
 		{
-			const FString QuestName = Quest.Objectives[i];
-			TPair<FString, int>* ObjectiveDetailEntry = new TPair<FString, int>;
-			ObjectiveDetailEntry->Key = QuestName;
-			ObjectiveDetailEntry->Value = rand() % MaxSubTaskAmount + 1;
-			ObjectiveDetails->Emplace(*ObjectiveDetailEntry);
+			TPair<FString, int> ObjectiveDetailEntry = QuestObjectiveData::GenerateRandomQuestData(
+				Quest.Objectives[i], MaxSubTaskAmount);
+			ObjectiveDetails->Emplace(ObjectiveDetailEntry);
 		}
 		QuestObject->Objectives = *ObjectiveDetails;
 
@@ -85,37 +84,22 @@ void UMainScreen::DisplayQuests()
 		int RewardCount = rand() % 3;
 		for (int i = 0; i <= RewardCount; i++)
 		{
-			FReward Reward = {};
-			Reward.CurrencyType = static_cast<ECurrency>(rand() % ECurrency::Num + 1);
-			switch (Reward.CurrencyType)
+			ECurrency RewardEntryCurrencyType = static_cast<ECurrency>(rand() % (ECurrency::Num - 1));
+			bool AlreadyHasRewardType = false;
+			for (const FReward& Reward : QuestObject->Rewards)
 			{
-			case Crystal:
+				if (Reward.CurrencyType == RewardEntryCurrencyType)
 				{
-					AllocateCurrencyAmount(Reward, CrystalRewardMax, CrystalRewardMin);
-					break;
+					AlreadyHasRewardType = true;
 				}
-			case Ruby:
-				{
-					AllocateCurrencyAmount(Reward, RubyRewardMax, RubyRewardMin);
-					break;
-				}
-			case PrimoGem:
-				{
-					AllocateCurrencyAmount(Reward, PrimogenRewardMax, PrimogemRewardMin);
-					break;
-				}
-			default: break;
 			}
+			if(AlreadyHasRewardType) continue;
+			FReward Reward = FReward(RewardEntryCurrencyType, MaxCurrencyRewards[RewardEntryCurrencyType],MinCurrencyRewards[RewardEntryCurrencyType]);
 			QuestObject->Rewards.Emplace(Reward);
 		}
 		QuestDataObjects.Emplace(QuestObject);
 	}
 	QuestListView->SetListItems(QuestDataObjects);
-}
-
-void UMainScreen::AllocateCurrencyAmount(FReward& Reward, const int MaxAmount, const int MinAmount)
-{
-	Reward.Amount = rand() % MaxAmount + MinAmount;
 }
 
 UWidget* UMainScreen::NativeGetDesiredFocusTarget() const

@@ -9,8 +9,11 @@ struct FReward
 	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY()
-	TEnumAsByte<ECurrency> CurrencyType = None;
+	TEnumAsByte<ECurrency> CurrencyType = Crystal;
 
 	UPROPERTY()
-	int Amount = 0;
+	int CurrencyAmount = 0;
+
+	FReward() = default;
+	FReward(const ECurrency& Type, const int& MaxCurrencyAmount, const int& MinCurrencyAmount);
 };
