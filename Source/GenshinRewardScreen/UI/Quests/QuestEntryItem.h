@@ -26,7 +26,7 @@ public:
 	TArray<TPair<FString, int>> Objectives;
 
 	UPROPERTY()
-	int Progress = 0;
+	float Progress = 0;
 
 	UPROPERTY()
 	TArray<FReward> Rewards;

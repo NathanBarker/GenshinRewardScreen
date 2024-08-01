@@ -24,7 +24,7 @@ class GENSHINREWARDSCREEN_API UMainScreen : public UCommonActivatableWidget
 	TObjectPtr<UHorizontalBox> CurrencyHorizontalLayout = nullptr;
 
 	UPROPERTY(meta=(BindWidget))
-	TObjectPtr<UListView> QuestListView = nullptr;
+	TObjectPtr<UListView> QuestList = nullptr;
 
 	UPROPERTY()
 	TArray<UCurrencyView*> CurrencyViews;
@@ -38,18 +38,19 @@ class GENSHINREWARDSCREEN_API UMainScreen : public UCommonActivatableWidget
 	UPROPERTY()
 	TArray<UQuestEntryItem*> QuestDataObjects;
 
+	//
 	// PrimoGen = 0, Ruby = 1, Crystal = 2
-	// Max Amounts
-	// Crystal = 10, Ruby = 99, Primogen = 50
+	// MAX AMOUNTS
+	// Primogen = 50, Ruby = 99, Crystal = 10, 
 	UPROPERTY(EditDefaultsOnly)
-	TArray<int> MaxCurrencyRewards = {50, 99, 10}; 
+	TArray<int> MaxCurrencyRewards;
 
-	// PrimoGen = 0, Ruby = 1, Crystal = 2
-	// Min Amounts
-	// Crystal = 10, Ruby = 99, Primogen = 50
+	// MIN AMOUNTS
+	// Primogen = 1, Ruby = 10, Crystal = 1
 	UPROPERTY(EditDefaultsOnly)
-	TArray<int> MinCurrencyRewards = {1, 10, 1}; 
-	
+	TArray<int> MinCurrencyRewards;
+	//
+
 	UPROPERTY(EditDefaultsOnly)
 	int ExperienceRewardMax = 0;
 
@@ -58,7 +59,7 @@ class GENSHINREWARDSCREEN_API UMainScreen : public UCommonActivatableWidget
 
 	UPROPERTY(EditDefaultsOnly)
 	int MaxSubTaskAmount = 0;
-	
+
 	void GenerateQuestData();
 	void InitialiseQuests();
 

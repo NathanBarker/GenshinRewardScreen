@@ -53,15 +53,15 @@ void UMainScreen::InitialiseQuests()
 		UQuestEntryItem* QuestObject = NewObject<UQuestEntryItem>();
 		QuestObject->Name = Quest.Name;
 		QuestObject->Description = Quest.Description;
-		
-		TArray<TPair<FString, int>>* ObjectiveDetails = new TArray<TPair<FString, int>>;
+
+		TArray<TPair<FString, int>> ObjectiveDetails;
 		for (int i = 0; i < Quest.Objectives.Num(); i++)
 		{
 			TPair<FString, int> ObjectiveDetailEntry = QuestObjectiveData::GenerateRandomQuestData(
 				Quest.Objectives[i], MaxSubTaskAmount);
-			ObjectiveDetails->Emplace(ObjectiveDetailEntry);
+			ObjectiveDetails.Emplace(ObjectiveDetailEntry);
 		}
-		QuestObject->Objectives = *ObjectiveDetails;
+		QuestObject->Objectives = ObjectiveDetails;
 
 		int CurrentObjectiveProgress = 0;
 		int ObjectiveCount = QuestObject->Objectives.Num();
@@ -73,7 +73,7 @@ void UMainScreen::InitialiseQuests()
 
 		if (CurrentObjectiveProgress != 0)
 		{
-			QuestObject->Progress = ObjectiveCount / CurrentObjectiveProgress;
+			QuestObject->Progress = CurrentObjectiveProgress / ObjectiveCount * 100;
 		}
 		else
 		{
@@ -84,7 +84,7 @@ void UMainScreen::InitialiseQuests()
 		int RewardCount = rand() % 3;
 		for (int i = 0; i <= RewardCount; i++)
 		{
-			ECurrency RewardEntryCurrencyType = static_cast<ECurrency>(rand() % (ECurrency::Num - 1));
+			ECurrency RewardEntryCurrencyType = static_cast<ECurrency>(rand() % ECurrency::Num);
 			bool AlreadyHasRewardType = false;
 			for (const FReward& Reward : QuestObject->Rewards)
 			{
@@ -93,16 +93,17 @@ void UMainScreen::InitialiseQuests()
 					AlreadyHasRewardType = true;
 				}
 			}
-			if(AlreadyHasRewardType) continue;
-			FReward Reward = FReward(RewardEntryCurrencyType, MaxCurrencyRewards[RewardEntryCurrencyType],MinCurrencyRewards[RewardEntryCurrencyType]);
+			if (AlreadyHasRewardType) continue;
+			FReward Reward = FReward(RewardEntryCurrencyType, MaxCurrencyRewards[RewardEntryCurrencyType],
+			                         MinCurrencyRewards[RewardEntryCurrencyType]);
 			QuestObject->Rewards.Emplace(Reward);
 		}
 		QuestDataObjects.Emplace(QuestObject);
 	}
-	QuestListView->SetListItems(QuestDataObjects);
+	QuestList->SetListItems(QuestDataObjects);
 }
 
 UWidget* UMainScreen::NativeGetDesiredFocusTarget() const
 {
-	return QuestListView;
+	return QuestList;
 }

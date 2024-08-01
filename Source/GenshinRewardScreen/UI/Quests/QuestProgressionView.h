@@ -22,5 +22,8 @@ class GENSHINREWARDSCREEN_API UQuestProgressionView : public UCommonUserWidget
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UTextBlock> QuestProgression = nullptr;
 
-	void NativePreConstruct() override;
+	virtual void NativePreConstruct() override;
+
+public:
+	void SetProgression(const int& Progression) const;
 };
