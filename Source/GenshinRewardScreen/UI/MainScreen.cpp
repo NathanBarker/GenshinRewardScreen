@@ -63,17 +63,19 @@ void UMainScreen::InitialiseQuests()
 		}
 		QuestObject->Objectives = ObjectiveDetails;
 
-		int CurrentObjectiveProgress = 0;
-		int ObjectiveCount = QuestObject->Objectives.Num();
+		float CurrentObjectiveProgress = 0.0f;
+		float ObjectiveCount = QuestObject->Objectives.Num();
 
 		for (const TPair<FString, int>& ObjectiveDetail : QuestObject->Objectives)
 		{
 			if (ObjectiveDetail.Value == MaxSubTaskAmount) CurrentObjectiveProgress++;
 		}
 
-		if (CurrentObjectiveProgress != 0)
+		// todo: check for 0 objectives
+		if (CurrentObjectiveProgress != 0.0f)
 		{
-			QuestObject->Progress = CurrentObjectiveProgress / ObjectiveCount * 100;
+			float Progress = CurrentObjectiveProgress / ObjectiveCount;
+			QuestObject->Progress = Progress;
 		}
 		else
 		{

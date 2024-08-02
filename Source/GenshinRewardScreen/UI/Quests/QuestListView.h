@@ -9,7 +9,6 @@
 #include "QuestRewardView.h"
 #include "Blueprint/IUserObjectListEntry.h"
 #include "Components/HorizontalBox.h"
-#include "Components/Image.h"
 #include "Components/TextBlock.h"
 #include "QuestListView.generated.h"
 
@@ -26,7 +25,7 @@ protected:
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
 	// IUserObjectListEntry
 
-	void NativeConstruct() override;
+	virtual void NativeConstruct() override;
 
 	void SetRewardsWidgets(const UQuestEntryItem* Item);
 	UPROPERTY(meta=(BindWidget))

@@ -25,5 +25,5 @@ class GENSHINREWARDSCREEN_API UQuestProgressionView : public UCommonUserWidget
 	virtual void NativePreConstruct() override;
 
 public:
-	void SetProgression(const int& Progression) const;
+	void SetProgression(const float& Progression) const;
 };

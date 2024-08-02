@@ -8,13 +8,15 @@ void UQuestProgressionView::NativePreConstruct()
 	Super::NativePreConstruct();
 }
 
-void UQuestProgressionView::SetProgression(const int& Progression) const
+void UQuestProgressionView::SetProgression(const float& Progression) const
 {
-	QuestProgression->SetText(FText::FromString(FString::FromInt(Progression)));
+	const int ProgressionAmount = Progression * 100;
+	const FText& ProgressionText = FText::FromString(FString::FromInt(ProgressionAmount) + "%") ;
+	QuestProgression->SetText(ProgressionText);
 
 	if(Progression != 0)
 	{
-		ProgressBar->SetPercent(Progression / 10);
+		ProgressBar->SetPercent(Progression);
 	}
 	else
 	{

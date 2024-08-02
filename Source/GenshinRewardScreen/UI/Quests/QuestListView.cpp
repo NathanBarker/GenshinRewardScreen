@@ -20,16 +20,24 @@ void UQuestListView::NativeConstruct()
 	for (int i = 0; i < 3; i++)
 	{
 		UQuestRewardView* RewardView = CreateWidget<UQuestRewardView>(this, QuestRewardTemplate);
-		if(IsValid(RewardView))
+		if (IsValid(RewardView))
 		{
 			RewardsContainer->AddChild(RewardView);
 			RewardView->SetVisibility(ESlateVisibility::Collapsed);
+			FMargin RewardViewPadding = {0,0,10,0};
+			RewardView->SetPadding(RewardViewPadding);
 		}
 	}
 }
 
 void UQuestListView::SetRewardsWidgets(const UQuestEntryItem* Item)
 {
+	for (UWidget* RewardWidget : RewardsContainer->GetAllChildren())
+	{
+		UQuestRewardView* RewardView = Cast<UQuestRewardView>(RewardWidget);
+		RewardView->SetVisibility(ESlateVisibility::Collapsed);
+	}
+	
 	for (const FReward Reward : Item->Rewards)
 	{
 		UQuestRewardView* RewardView = Cast<UQuestRewardView>(RewardsContainer->GetAllChildren()[Reward.CurrencyType]);
@@ -41,8 +49,8 @@ void UQuestListView::SetRewardsWidgets(const UQuestEntryItem* Item)
 			if (RewardBackgrounds.IsEmpty())
 			{
 				UE_LOG(LogTemp, Error,
-					   TEXT("Reward Background array is empty, enter reward backgrounds inside the WBP_QuestListEntry"
-					   ));
+				       TEXT("Reward Background array is empty, enter reward backgrounds inside the WBP_QuestListEntry"
+				       ));
 			}
 			else
 			{
@@ -52,7 +60,7 @@ void UQuestListView::SetRewardsWidgets(const UQuestEntryItem* Item)
 			if (RewardIcons.IsEmpty())
 			{
 				UE_LOG(LogTemp, Error,
-					   TEXT("Reward Icons array is empty, enter reward icons inside the WBP_QuestListEntry"));
+				       TEXT("Reward Icons array is empty, enter reward icons inside the WBP_QuestListEntry"));
 			}
 			else
 			{
@@ -66,4 +74,3 @@ void UQuestListView::SetRewardsWidgets(const UQuestEntryItem* Item)
 		UE_LOG(LogTemp, Error, TEXT("Reward View failed to get created"));
 	}
 }
-
