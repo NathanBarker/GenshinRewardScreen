@@ -16,4 +16,9 @@ struct FReward
 
 	FReward() = default;
 	FReward(const ECurrency& Type, const int& MaxCurrencyAmount, const int& MinCurrencyAmount);
+
+	bool operator< (const FReward& Other) const
+	{
+		return Other.CurrencyType < CurrencyType;
+	}
 };

@@ -17,7 +17,7 @@ void UQuestListView::NativeOnListItemObjectSet(UObject* ListItemObject)
 void UQuestListView::NativeConstruct()
 {
 	Super::NativeConstruct();
-	for (int i = 0; i < 3; i++)
+	for (int i = 0; i < ECurrency::Num; i++)
 	{
 		UQuestRewardView* RewardView = CreateWidget<UQuestRewardView>(this, QuestRewardTemplate);
 		if (IsValid(RewardView))
@@ -30,13 +30,15 @@ void UQuestListView::NativeConstruct()
 	}
 }
 
-void UQuestListView::SetRewardsWidgets(const UQuestEntryItem* Item)
+void UQuestListView::SetRewardsWidgets(UQuestEntryItem* Item)
 {
 	for (UWidget* RewardWidget : RewardsContainer->GetAllChildren())
 	{
 		UQuestRewardView* RewardView = Cast<UQuestRewardView>(RewardWidget);
 		RewardView->SetVisibility(ESlateVisibility::Collapsed);
 	}
+
+	Item->Rewards.Sort();
 	
 	for (const FReward Reward : Item->Rewards)
 	{

@@ -27,7 +27,7 @@ protected:
 
 	virtual void NativeConstruct() override;
 
-	void SetRewardsWidgets(const UQuestEntryItem* Item);
+	void SetRewardsWidgets(UQuestEntryItem* Item);
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UTextBlock> QuestTitle = nullptr;
 
@@ -46,4 +46,5 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly)
 	TArray<UTexture2D*> RewardIcons;
+
 };
