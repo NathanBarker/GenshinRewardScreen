@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Nathan Barker GenshinRewardScreen Personal Training Project. 
 
 
 #include "MainScreen.h"
@@ -7,6 +7,7 @@
 #include "GenshinRewardScreen/HelperClasses/QuestObjectiveData.h"
 #include "Quests/QuestEntryItem.h"
 #include "Quests/QuestRewards.h"
+#include "Input/CommonUIInputTypes.h"
 
 void UMainScreen::NativeOnActivated()
 {
@@ -33,6 +34,8 @@ void UMainScreen::NativeOnActivated()
 	{
 		DesiredWidget->SetFocus();
 	}
+
+	InitialiseDetailInput();
 }
 
 void UMainScreen::GenerateQuestData()
@@ -104,6 +107,23 @@ void UMainScreen::InitialiseQuests()
 	}
 	QuestList->SetListItems(QuestDataObjects);
 }
+
+void UMainScreen::InitialiseDetailInput()
+{
+	if (DetailsInputHandle.IsValid()) return;
+
+	FBindUIActionArgs BindArgs (DetailsInput, true,
+	                           FSimpleDelegate::CreateUObject(this, &UMainScreen::OpenDetailsPanel));
+
+	BindArgs.InputMode = ECommonInputMode::Menu;
+	DetailsInputHandle = RegisterUIActionBinding(BindArgs);
+}
+
+void UMainScreen::OpenDetailsPanel()
+{
+	UE_LOG(LogTemp, Error, TEXT("Opened Detail Panel"));
+}
+
 
 UWidget* UMainScreen::NativeGetDesiredFocusTarget() const
 {

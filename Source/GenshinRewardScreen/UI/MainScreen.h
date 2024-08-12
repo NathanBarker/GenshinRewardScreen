@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Nathan Barker GenshinRewardScreen Personal Training Project. 
 
 #pragma once
 
@@ -8,6 +8,7 @@
 #include "Components/ListView.h"
 #include "GenshinRewardScreen/DataModel/QuestModel.h"
 #include "Quests/QuestEntryItem.h"
+
 #include "MainScreen.generated.h"
 
 class UCurrencyView;
@@ -31,6 +32,11 @@ class GENSHINREWARDSCREEN_API UMainScreen : public UCommonActivatableWidget
 
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UDataTable> QuestDataTable = nullptr;
+
+	UPROPERTY(EditDefaultsOnly)
+	FDataTableRowHandle DetailsInput;
+
+	FUIActionBindingHandle DetailsInputHandle; 
 
 	UPROPERTY()
 	TArray<FQuest> QuestRows;
@@ -62,6 +68,8 @@ class GENSHINREWARDSCREEN_API UMainScreen : public UCommonActivatableWidget
 
 	void GenerateQuestData();
 	void InitialiseQuests();
+	void InitialiseDetailInput();
+	void OpenDetailsPanel();
 
 protected:
 	virtual void NativeOnActivated() override;

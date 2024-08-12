@@ -68,11 +68,14 @@ void UQuestListView::SetRewardsWidgets(UQuestEntryItem* Item)
 			{
 				RewardIcon = RewardIcons[Reward.CurrencyType];
 			}
-			if (!RewardBackground || !RewardIcon) return;
+			if (!RewardBackground || !RewardIcon)
+			{
+				UE_LOG(LogTemp, Error, TEXT("Reward View failed to get created"));
+				return;
+			}
 			RewardView->InitializeReward(RewardBackground, RewardIcon, Reward.CurrencyAmount);
 			RewardView->SetVisibility(ESlateVisibility::HitTestInvisible);
 			RewardsContainer->AddChild(RewardView);
 		}
-		UE_LOG(LogTemp, Error, TEXT("Reward View failed to get created"));
 	}
 }

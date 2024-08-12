@@ -1,3 +1,4 @@
+// Nathan Barker GenshinRewardScreen Personal Training Project. 
 #pragma once
 
 #include "GenshinRewardScreen/DataModel/CurrencyModel.h"
