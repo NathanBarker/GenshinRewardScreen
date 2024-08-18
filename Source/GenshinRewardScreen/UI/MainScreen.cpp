@@ -2,17 +2,22 @@
 
 
 #include "MainScreen.h"
-
 #include "Currency/CurrencyView.h"
 #include "GenshinRewardScreen/HelperClasses/QuestObjectiveData.h"
+#include "GenshinRewardScreen/GameplayMessages/GameplayMessages.h"
+#include "Input/CommonUIInputTypes.h"
 #include "Quests/QuestEntryItem.h"
 #include "Quests/QuestRewards.h"
-#include "Input/CommonUIInputTypes.h"
+
+UE_DEFINE_GAMEPLAY_TAG(UI_Message_OpenPanel, "Path.String.ForTag");
 
 void UMainScreen::NativeOnActivated()
 {
 	Super::NativeOnActivated();
 	GenerateQuestData();
+	InitialiseDetailInput();
+
+	MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 
 	// Get all CurrencyViews
 	for (uint8 i = 0; i < CurrencyHorizontalLayout->GetAllChildren().Num(); i++)
@@ -34,8 +39,6 @@ void UMainScreen::NativeOnActivated()
 	{
 		DesiredWidget->SetFocus();
 	}
-
-	InitialiseDetailInput();
 }
 
 void UMainScreen::GenerateQuestData()
@@ -57,12 +60,11 @@ void UMainScreen::InitialiseQuests()
 		QuestObject->Name = Quest.Name;
 		QuestObject->Description = Quest.Description;
 
-		TArray<TPair<FString, int>> ObjectiveDetails;
+		TMap<FString, int> ObjectiveDetails;
 		for (int i = 0; i < Quest.Objectives.Num(); i++)
 		{
-			TPair<FString, int> ObjectiveDetailEntry = QuestObjectiveData::GenerateRandomQuestData(
-				Quest.Objectives[i], MaxSubTaskAmount);
-			ObjectiveDetails.Emplace(ObjectiveDetailEntry);
+			ObjectiveDetails.Add(QuestObjectiveData::GenerateRandomQuestData(
+				Quest.Objectives[i], MaxSubTaskAmount));
 		}
 		QuestObject->Objectives = ObjectiveDetails;
 
@@ -112,18 +114,24 @@ void UMainScreen::InitialiseDetailInput()
 {
 	if (DetailsInputHandle.IsValid()) return;
 
-	FBindUIActionArgs BindArgs (DetailsInput, true,
+	if (DetailsInput.IsNull())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Details Input is Null, check BaseScreen properties to ensure it is populated"));
+	}
+
+	FBindUIActionArgs BindArgs(DetailsInput, true,
 	                           FSimpleDelegate::CreateUObject(this, &UMainScreen::OpenDetailsPanel));
 
 	BindArgs.InputMode = ECommonInputMode::Menu;
 	DetailsInputHandle = RegisterUIActionBinding(BindArgs);
 }
 
-void UMainScreen::OpenDetailsPanel()
+void UMainScreen::OpenDetailsPanel() const
 {
-	UE_LOG(LogTemp, Error, TEXT("Opened Detail Panel"));
+	FDetailsPanelMessage OutgoingMessage;
+	// Define Data members here
+	MessageSubsystem->BroadcastMessage(UI_Message_OpenPanel, OutgoingMessage);
 }
-
 
 UWidget* UMainScreen::NativeGetDesiredFocusTarget() const
 {

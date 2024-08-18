@@ -23,7 +23,7 @@ public:
 	UPROPERTY()
 	FString Description;
 	
-	TArray<TPair<FString, int>> Objectives;
+	TMap<FString, int> Objectives;
 
 	UPROPERTY()
 	float Progress = 0;

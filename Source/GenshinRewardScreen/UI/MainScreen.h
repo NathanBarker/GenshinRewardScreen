@@ -7,9 +7,13 @@
 #include "Components/HorizontalBox.h"
 #include "Components/ListView.h"
 #include "GenshinRewardScreen/DataModel/QuestModel.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
+#include "NativeGameplayTags.h"
 #include "Quests/QuestEntryItem.h"
 
 #include "MainScreen.generated.h"
+
+GENSHINREWARDSCREEN_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(UI_Message_OpenPanel);
 
 class UCurrencyView;
 
@@ -32,11 +36,6 @@ class GENSHINREWARDSCREEN_API UMainScreen : public UCommonActivatableWidget
 
 	UPROPERTY(EditDefaultsOnly)
 	TObjectPtr<UDataTable> QuestDataTable = nullptr;
-
-	UPROPERTY(EditDefaultsOnly)
-	FDataTableRowHandle DetailsInput;
-
-	FUIActionBindingHandle DetailsInputHandle; 
 
 	UPROPERTY()
 	TArray<FQuest> QuestRows;
@@ -65,11 +64,19 @@ class GENSHINREWARDSCREEN_API UMainScreen : public UCommonActivatableWidget
 
 	UPROPERTY(EditDefaultsOnly)
 	int MaxSubTaskAmount = 0;
+	
+	UPROPERTY(EditDefaultsOnly)
+	FDataTableRowHandle DetailsInput;
 
+	FUIActionBindingHandle DetailsInputHandle;
+
+	UPROPERTY()
+	TObjectPtr<UGameplayMessageSubsystem> MessageSubsystem = nullptr;
+	
 	void GenerateQuestData();
 	void InitialiseQuests();
 	void InitialiseDetailInput();
-	void OpenDetailsPanel();
+	void OpenDetailsPanel() const;
 
 protected:
 	virtual void NativeOnActivated() override;
