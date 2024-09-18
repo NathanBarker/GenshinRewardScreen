@@ -16,7 +16,7 @@ void UMainScreen::NativeOnActivated()
 	Super::NativeOnActivated();
 	GenerateQuestData();
 	InitialiseDetailInput();
-
+	GetDesiredFocusTarget()->SetFocus();
 	MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 
 	// Get all CurrencyViews
@@ -32,12 +32,6 @@ void UMainScreen::NativeOnActivated()
 			UE_LOG(LogTemp, Error,
 			       TEXT("Casting of Currency UWidget Type failed, widget will not be added to CurrencyViews array"));
 		}
-	}
-
-	UWidget* DesiredWidget = GetDesiredFocusTarget();
-	if (IsValid(DesiredWidget))
-	{
-		DesiredWidget->SetFocus();
 	}
 }
 
@@ -135,5 +129,6 @@ void UMainScreen::OpenDetailsPanel() const
 
 UWidget* UMainScreen::NativeGetDesiredFocusTarget() const
 {
+	QuestList->SetFocus();
 	return QuestList;
 }

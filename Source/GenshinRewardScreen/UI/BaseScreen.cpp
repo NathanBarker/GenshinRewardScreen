@@ -12,7 +12,8 @@ void UBaseScreen::NativeConstruct()
 
 	if (IsValid(MainScreenTemplate))
 	{
-		MainMenuStack->AddWidget(MainScreenTemplate);
+		UMainScreen* MainScreen = Cast<UMainScreen>(MainMenuStack->AddWidget(MainScreenTemplate));
+		MainScreen->ActivateWidget();
 		MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 		FGameplayMessageListenerHandle ListenerHandle = MessageSubsystem->RegisterListener(UI_Message_OpenPanel, this, &UBaseScreen::ActivateDetailsPanel);
 	}

@@ -4,6 +4,8 @@
 #include "QuestListView.h"
 #include "QuestEntryItem.h"
 #include "QuestRewardView.h"
+#include "Components/CanvasPanelSlot.h"
+#include "Components/OverlaySlot.h"
 
 void UQuestListView::NativeOnListItemObjectSet(UObject* ListItemObject)
 {
@@ -28,6 +30,18 @@ void UQuestListView::NativeConstruct()
 			RewardView->SetPadding(RewardViewPadding);
 		}
 	}
+}
+
+void UQuestListView::NativeOnSelected(bool bBroadcast)
+{
+	Super::NativeOnSelected(bBroadcast);
+	PlayAnimation(Selected);
+}
+
+void UQuestListView::NativeOnDeselected(bool bBroadcast)
+{
+	Super::NativeOnDeselected(bBroadcast);
+	PlayAnimation(Default);
 }
 
 void UQuestListView::SetRewardsWidgets(UQuestEntryItem* Item)
