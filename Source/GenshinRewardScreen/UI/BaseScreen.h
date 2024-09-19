@@ -5,11 +5,13 @@
 #include "CoreMinimal.h"
 #include "CommonUI/Public/Widgets/CommonActivatableWidgetContainer.h"
 #include "CommonUserWidget.h"
-#include "MainScreen.h"
 #include "Details/DetailsPanel.h"
+#include "MainScreen.h"
 #include "GenshinRewardScreen/GameplayMessages/GameplayMessages.h"
-#include "BaseScreen.generated.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
+#include "Input/CommonUIInputTypes.h"
 
+#include "BaseScreen.generated.h"
 
 /**
  * 

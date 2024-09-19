@@ -2,22 +2,21 @@
 
 
 #include "MainScreen.h"
+
 #include "Currency/CurrencyView.h"
 #include "GenshinRewardScreen/HelperClasses/QuestObjectiveData.h"
-#include "GenshinRewardScreen/GameplayMessages/GameplayMessages.h"
-#include "Input/CommonUIInputTypes.h"
 #include "Quests/QuestEntryItem.h"
 #include "Quests/QuestRewards.h"
 
-UE_DEFINE_GAMEPLAY_TAG(UI_Message_OpenPanel, "Path.String.ForTag");
 
 void UMainScreen::NativeOnActivated()
 {
 	Super::NativeOnActivated();
-	GenerateQuestData();
-	InitialiseDetailInput();
+	if (QuestDataObjects.IsEmpty())
+	{
+		GenerateQuestData();
+	}
 	GetDesiredFocusTarget()->SetFocus();
-	MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 
 	// Get all CurrencyViews
 	for (uint8 i = 0; i < CurrencyHorizontalLayout->GetAllChildren().Num(); i++)
@@ -102,29 +101,6 @@ void UMainScreen::InitialiseQuests()
 		QuestDataObjects.Emplace(QuestObject);
 	}
 	QuestList->SetListItems(QuestDataObjects);
-}
-
-void UMainScreen::InitialiseDetailInput()
-{
-	if (DetailsInputHandle.IsValid()) return;
-
-	if (DetailsInput.IsNull())
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Details Input is Null, check BaseScreen properties to ensure it is populated"));
-	}
-
-	FBindUIActionArgs BindArgs(DetailsInput, true,
-	                           FSimpleDelegate::CreateUObject(this, &UMainScreen::OpenDetailsPanel));
-
-	BindArgs.InputMode = ECommonInputMode::Menu;
-	DetailsInputHandle = RegisterUIActionBinding(BindArgs);
-}
-
-void UMainScreen::OpenDetailsPanel() const
-{
-	FDetailsPanelMessage OutgoingMessage;
-	// Define Data members here
-	MessageSubsystem->BroadcastMessage(UI_Message_OpenPanel, OutgoingMessage);
 }
 
 UWidget* UMainScreen::NativeGetDesiredFocusTarget() const

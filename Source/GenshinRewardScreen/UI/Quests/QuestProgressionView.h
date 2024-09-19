@@ -6,6 +6,7 @@
 #include "CommonUserWidget.h"
 #include "Components/ProgressBar.h"
 #include "Components/TextBlock.h"
+
 #include "QuestProgressionView.generated.h"
 
 /**

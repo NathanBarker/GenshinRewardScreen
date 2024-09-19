@@ -2,9 +2,7 @@
 
 
 #include "BaseScreen.h"
-
-#include "GenshinRewardScreen/GameplayMessages/GameplayMessages.h"
-#include "Input/CommonUIInputTypes.h"
+#include "Quests/QuestListView.h"
 
 void UBaseScreen::NativeConstruct()
 {
@@ -15,7 +13,8 @@ void UBaseScreen::NativeConstruct()
 		UMainScreen* MainScreen = Cast<UMainScreen>(MainMenuStack->AddWidget(MainScreenTemplate));
 		MainScreen->ActivateWidget();
 		MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-		FGameplayMessageListenerHandle ListenerHandle = MessageSubsystem->RegisterListener(UI_Message_OpenPanel, this, &UBaseScreen::ActivateDetailsPanel);
+		FGameplayMessageListenerHandle ListenerHandle = MessageSubsystem->RegisterListener(
+			UI_Message_On_Quest_Selection_Changed, this, &UBaseScreen::ActivateDetailsPanel);
 	}
 	else
 	{
@@ -25,5 +24,6 @@ void UBaseScreen::NativeConstruct()
 
 void UBaseScreen::ActivateDetailsPanel(FGameplayTag InChannel, const FDetailsPanelMessage& InMessage)
 {
-	MainMenuStack->AddWidget(DetailsPanelTemplate);
+	UDetailsPanel* DetailsPanel = Cast<UDetailsPanel>(MainMenuStack->AddWidget(DetailsPanelTemplate));
+	DetailsPanel
 }

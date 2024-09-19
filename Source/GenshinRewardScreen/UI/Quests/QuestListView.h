@@ -2,15 +2,20 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "Blueprint/IUserObjectListEntry.h"
 #include "CommonButtonBase.h"
+#include "Components/HorizontalBox.h"
+#include "Components/TextBlock.h"
+#include "CoreMinimal.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
+#include "NativeGameplayTags.h"
 #include "QuestEntryItem.h"
 #include "QuestProgressionView.h"
 #include "QuestRewardView.h"
-#include "Blueprint/IUserObjectListEntry.h"
-#include "Components/HorizontalBox.h"
-#include "Components/TextBlock.h"
+
 #include "QuestListView.generated.h"
+
+GENSHINREWARDSCREEN_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(UI_Message_On_Quest_Selection_Changed);
 
 /**
  * 
@@ -20,16 +25,27 @@ class GENSHINREWARDSCREEN_API UQuestListView : public UCommonButtonBase, public 
 {
 	GENERATED_BODY()
 
+public:
+
 protected:
 	// IUserObjectListEntry
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
 	// IUserObjectListEntry
-
+	
 	virtual void NativeConstruct() override;
 	virtual void NativeOnSelected(bool bBroadcast) override;
+	virtual void NativeOnClicked() override;
 	virtual void NativeOnDeselected(bool bBroadcast) override;
 
 	void SetRewardsWidgets(UQuestEntryItem* Item);
+
+	UPROPERTY(EditDefaultsOnly)
+	FDataTableRowHandle DetailsInput;
+	
+	FUIActionBindingHandle DetailsInputHandle;
+	
+	UPROPERTY()
+	TObjectPtr<UQuestEntryItem> QuestEntryItem = nullptr;
 
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UTextBlock> QuestTitle = nullptr;
@@ -50,12 +66,6 @@ protected:
 	UPROPERTY(EditDefaultsOnly)
 	TArray<UTexture2D*> RewardIcons;
 
-	FVector2D SelectedSize = {700.0f, 100.0f};
-	FVector2D DefaultSize = {600.0f, 100.0f};
-
-	UPROPERTY(Transient, meta=(BindWidgetAnim))
-	TObjectPtr<UWidgetAnimation> Selected;
-
-	UPROPERTY(Transient, meta=(BindWidgetAnim))
-	TObjectPtr<UWidgetAnimation> Default;
+	UPROPERTY()
+	TObjectPtr<UGameplayMessageSubsystem> MessageSubsystem = nullptr;
 };

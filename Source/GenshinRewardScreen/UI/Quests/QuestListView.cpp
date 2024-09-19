@@ -1,11 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
+#include "GenshinRewardScreen/GameplayMessages/GameplayMessages.h"
+#include "Input/CommonUIInputTypes.h"
 #include "QuestListView.h"
 #include "QuestEntryItem.h"
 #include "QuestRewardView.h"
-#include "Components/CanvasPanelSlot.h"
-#include "Components/OverlaySlot.h"
+
+UE_DEFINE_GAMEPLAY_TAG(UI_Message_On_Quest_Selection_Changed, "UI.Message.On.Quest.Selection.Changed");
 
 void UQuestListView::NativeOnListItemObjectSet(UObject* ListItemObject)
 {
@@ -14,6 +15,8 @@ void UQuestListView::NativeOnListItemObjectSet(UObject* ListItemObject)
 	QuestTitle->SetText(FText::FromString(Item->Name));
 	WBP_QuestProgression->SetProgression(Item->Progress);
 	SetRewardsWidgets(Item);
+	QuestEntryItem = Item;
+	MessageSubsystem = UGameplayMessageSubsystem::Get(this);
 }
 
 void UQuestListView::NativeConstruct()
@@ -26,7 +29,7 @@ void UQuestListView::NativeConstruct()
 		{
 			RewardsContainer->AddChild(RewardView);
 			RewardView->SetVisibility(ESlateVisibility::Collapsed);
-			FMargin RewardViewPadding = {0,0,10,0};
+			FMargin RewardViewPadding = {0, 0, 10, 0};
 			RewardView->SetPadding(RewardViewPadding);
 		}
 	}
@@ -35,13 +38,41 @@ void UQuestListView::NativeConstruct()
 void UQuestListView::NativeOnSelected(bool bBroadcast)
 {
 	Super::NativeOnSelected(bBroadcast);
-	PlayAnimation(Selected);
+
+	if (DetailsInputHandle.IsValid()) return;
+
+	if (DetailsInput.IsNull())
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Details Input is Null, check BaseScreen properties to ensure it is set"));
+	}
+
+	FBindUIActionArgs BindArgs(DetailsInput, true,
+							   FSimpleDelegate::CreateUObject(this, &UQuestListView::NativeOnClicked));
+
+	BindArgs.InputMode = ECommonInputMode::Menu;
+	DetailsInputHandle = RegisterUIActionBinding(BindArgs);
+}
+
+void UQuestListView::NativeOnClicked()
+{
+	Super::NativeOnClicked();
+	
+	FDetailsPanelMessage OutgoingMessage;
+	
+	// Define Message Data
+	OutgoingMessage.QuestTitle = QuestEntryItem->Name;
+	OutgoingMessage.QuestDescription = QuestEntryItem->Description;
+	OutgoingMessage.Rewards = QuestEntryItem->Rewards;
+	OutgoingMessage.ObjectiveDetails = QuestEntryItem->Objectives;
+	OutgoingMessage.QuestProgress = QuestEntryItem->Progress;
+	
+	MessageSubsystem->BroadcastMessage(UI_Message_On_Quest_Selection_Changed, OutgoingMessage);
 }
 
 void UQuestListView::NativeOnDeselected(bool bBroadcast)
 {
 	Super::NativeOnDeselected(bBroadcast);
-	PlayAnimation(Default);
+	DetailsInputHandle.Unregister();
 }
 
 void UQuestListView::SetRewardsWidgets(UQuestEntryItem* Item)
@@ -53,7 +84,7 @@ void UQuestListView::SetRewardsWidgets(UQuestEntryItem* Item)
 	}
 
 	Item->Rewards.Sort();
-	
+
 	for (const FReward Reward : Item->Rewards)
 	{
 		UQuestRewardView* RewardView = Cast<UQuestRewardView>(RewardsContainer->GetAllChildren()[Reward.CurrencyType]);
