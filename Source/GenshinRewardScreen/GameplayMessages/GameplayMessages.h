@@ -17,5 +17,7 @@ struct FDetailsPanelMessage
 
 	TArray<FReward> Rewards;
 
+	int XP = 0;
+
 	TMap<FString, int> ObjectiveDetails;
 };

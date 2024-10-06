@@ -8,6 +8,7 @@ enum ECurrency : uint8
 	PrimoGem = 0,
 	Ruby = 1,
 	Crystal = 2,
+	XP = 3,
 
-	Num = 3
+	Num = 4
 };

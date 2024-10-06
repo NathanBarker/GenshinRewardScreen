@@ -4,10 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "CommonActivatableWidget.h"
+#include "Components/HorizontalBox.h"
 #include "Components/ListView.h"
 #include "Components/TextBlock.h"
 #include "GenshinRewardScreen/GameplayMessages/GameplayMessages.h"
 #include "GenshinRewardScreen/UI/Quests/QuestProgressionView.h"
+#include "Rewards/RewardView.h"
 #include "DetailsPanel.generated.h"
 
 /**
@@ -22,6 +24,10 @@ public:
 
 	void InitialiseDetailsPanel(const FDetailsPanelMessage& InMessage) const;
 
+protected:
+
+	virtual void NativeOnDeactivated() override;
+
 private:
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UTextBlock> QuestTitle = nullptr;
@@ -34,4 +40,13 @@ private:
 
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UListView> ObjectivesListView = nullptr;
+
+	UPROPERTY(meta=(BindWidget))
+	TObjectPtr<URewardView> XPReward = nullptr;
+
+	UPROPERTY(meta=(BindWidget))
+	TObjectPtr<UHorizontalBox> RewardsContainer = nullptr;
+
+	UPROPERTY(EditDefaultsOnly)
+	TSubclassOf<URewardView> RewardTemplate;
 };

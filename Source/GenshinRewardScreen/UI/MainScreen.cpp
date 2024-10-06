@@ -84,7 +84,8 @@ void UMainScreen::InitialiseQuests()
 		int RewardCount = rand() % 3;
 		for (int i = 0; i <= RewardCount; i++)
 		{
-			ECurrency RewardEntryCurrencyType = static_cast<ECurrency>(rand() % ECurrency::Num);
+			// -1 here to avoid choosing XP, we have already defined XP
+			ECurrency RewardEntryCurrencyType = static_cast<ECurrency>(rand() % Crystal);
 			bool AlreadyHasRewardType = false;
 			for (const FReward& Reward : QuestObject->Rewards)
 			{
