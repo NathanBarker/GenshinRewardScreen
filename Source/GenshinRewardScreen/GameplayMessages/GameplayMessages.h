@@ -13,7 +13,7 @@ struct FDetailsPanelMessage
 
 	FString QuestDescription = "";
 
-	int QuestProgress = 0;
+	float QuestProgress = 0;
 
 	TArray<FReward> Rewards;
 

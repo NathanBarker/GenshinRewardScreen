@@ -25,8 +25,6 @@ class GENSHINREWARDSCREEN_API UQuestListView : public UCommonButtonBase, public 
 {
 	GENERATED_BODY()
 
-public:
-
 protected:
 	// IUserObjectListEntry
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;

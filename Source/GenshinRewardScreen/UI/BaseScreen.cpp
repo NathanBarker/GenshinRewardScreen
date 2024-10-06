@@ -25,5 +25,5 @@ void UBaseScreen::NativeConstruct()
 void UBaseScreen::ActivateDetailsPanel(FGameplayTag InChannel, const FDetailsPanelMessage& InMessage)
 {
 	UDetailsPanel* DetailsPanel = Cast<UDetailsPanel>(MainMenuStack->AddWidget(DetailsPanelTemplate));
-	DetailsPanel
+	DetailsPanel->InitialiseDetailsPanel(InMessage);
 }
