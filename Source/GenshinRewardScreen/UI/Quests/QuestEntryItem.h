@@ -32,5 +32,10 @@ public:
 	TArray<FReward> Rewards;
 
 	UPROPERTY()
-	int Experience = 0; 
+	int Experience = 0;
+
+	bool operator< (const UQuestEntryItem& Other) const
+	{
+		return Other.Progress < Progress;
+	}
 };

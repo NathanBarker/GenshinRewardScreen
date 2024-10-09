@@ -47,60 +47,10 @@ void UMainScreen::GenerateQuestData()
 
 void UMainScreen::InitialiseQuests()
 {
-	for (const FQuest& Quest : QuestRows)
-	{
-		UQuestEntryItem* QuestObject = NewObject<UQuestEntryItem>();
-		QuestObject->Name = Quest.Name;
-		QuestObject->Description = Quest.Description;
+	QuestDataObjects = QuestObjectiveData::CreateQuests(QuestRows, MaxSubTaskAmount, ExperienceRewardMax,
+	                                                    ExperienceRewardMin, MaxCurrencyRewards, MinCurrencyRewards);
 
-		TMap<FString, int> ObjectiveDetails;
-		for (int i = 0; i < Quest.Objectives.Num(); i++)
-		{
-			ObjectiveDetails.Add(QuestObjectiveData::GenerateRandomQuestData(
-				Quest.Objectives[i], MaxSubTaskAmount));
-		}
-		QuestObject->Objectives = ObjectiveDetails;
-
-		float CurrentObjectiveProgress = 0.0f;
-		float ObjectiveCount = QuestObject->Objectives.Num();
-
-		for (const TPair<FString, int>& ObjectiveDetail : QuestObject->Objectives)
-		{
-			if (ObjectiveDetail.Value == MaxSubTaskAmount) CurrentObjectiveProgress++;
-		}
-
-		// todo: check for 0 objectives
-		if (CurrentObjectiveProgress != 0.0f)
-		{
-			float Progress = CurrentObjectiveProgress / ObjectiveCount;
-			QuestObject->Progress = Progress;
-		}
-		else
-		{
-			QuestObject->Progress = 0;
-		}
-		QuestObject->Experience = rand() % ExperienceRewardMax + ExperienceRewardMin;
-
-		int RewardCount = rand() % 3;
-		for (int i = 0; i <= RewardCount; i++)
-		{
-			// -1 here to avoid choosing XP, we have already defined XP
-			ECurrency RewardEntryCurrencyType = static_cast<ECurrency>(rand() % Crystal);
-			bool AlreadyHasRewardType = false;
-			for (const FReward& Reward : QuestObject->Rewards)
-			{
-				if (Reward.CurrencyType == RewardEntryCurrencyType)
-				{
-					AlreadyHasRewardType = true;
-				}
-			}
-			if (AlreadyHasRewardType) continue;
-			FReward Reward = FReward(RewardEntryCurrencyType, MaxCurrencyRewards[RewardEntryCurrencyType],
-			                         MinCurrencyRewards[RewardEntryCurrencyType]);
-			QuestObject->Rewards.Emplace(Reward);
-		}
-		QuestDataObjects.Emplace(QuestObject);
-	}
+	QuestDataObjects.Sort();
 	QuestList->SetListItems(QuestDataObjects);
 }
 
