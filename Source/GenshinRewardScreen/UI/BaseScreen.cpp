@@ -13,7 +13,7 @@ void UBaseScreen::NativeConstruct()
 		UMainScreen* MainScreen = Cast<UMainScreen>(MainMenuStack->AddWidget(MainScreenTemplate));
 		MainScreen->ActivateWidget();
 		MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-		FGameplayMessageListenerHandle ListenerHandle = MessageSubsystem->RegisterListener(
+		MessageSubsystem->RegisterListener(
 			UI_Message_On_Quest_Selection_Changed, this, &UBaseScreen::ActivateDetailsPanel);
 	}
 	else

@@ -21,9 +21,6 @@ protected:
 	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
 	// IUserObjectListEntry
 
-	virtual void NativeOnDeselected(bool bBroadcast) override;
-	virtual void NativeOnSelected(bool bBroadcast) override;
-
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UTextBlock> ObjectiveText = nullptr;
 

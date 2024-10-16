@@ -7,12 +7,10 @@
 USTRUCT()
 struct FReward
 {
-	GENERATED_USTRUCT_BODY()
-
-	UPROPERTY()
+	GENERATED_BODY()
+	
 	TEnumAsByte<ECurrency> CurrencyType = Crystal;
-
-	UPROPERTY()
+	
 	int CurrencyAmount = 0;
 
 	FReward() = default;

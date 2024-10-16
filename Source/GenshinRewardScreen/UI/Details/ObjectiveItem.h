@@ -16,6 +16,6 @@ class GENSHINREWARDSCREEN_API UObjectiveItem : public UObject
 
 public:
 	UObjectiveItem() = default;
-
+	
 	FString ObjectiveText = "";
 };

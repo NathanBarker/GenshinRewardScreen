@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Nathan Barker GenshinRewardScreen Personal Training Project. 
 
 #pragma once
 
@@ -29,7 +29,7 @@ class GENSHINREWARDSCREEN_API UCurrencyView : public UCommonUserWidget
 	UTexture2D* IconTexture;
 
 public:
-	void NativePreConstruct() override;
+	virtual void NativePreConstruct() override;
 	void InitCurrencyView() const;
 	void SetCurrencyIconBrush(UTexture2D* currencyIcon) const;
 	void SetCurrencyText(const uint8 currencyAmount) const;

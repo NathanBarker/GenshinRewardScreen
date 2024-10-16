@@ -15,9 +15,9 @@ struct FDetailsPanelMessage
 
 	float QuestProgress = 0;
 
-	TArray<FReward> Rewards;
+	TArray<FReward> Rewards = {};
 
 	int XP = 0;
 
-	TMap<FString, int> ObjectiveDetails;
+	TMap<FString, int> ObjectiveDetails = {};
 };

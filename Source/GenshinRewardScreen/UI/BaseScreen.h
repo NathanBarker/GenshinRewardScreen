@@ -20,12 +20,13 @@ UCLASS()
 class GENSHINREWARDSCREEN_API UBaseScreen : public UCommonUserWidget
 {
 	GENERATED_BODY()
-
+	
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UCommonActivatableWidgetStack> MainMenuStack = nullptr;
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UMainScreen> MainScreenTemplate;
+	
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UDetailsPanel> DetailsPanelTemplate;
 

@@ -5,14 +5,14 @@
 USTRUCT()
 struct FQuest : public FTableRowBase
 {
-	GENERATED_USTRUCT_BODY()
+	GENERATED_BODY()
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY()
 	FString Name;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY()
 	FString Description;
 
-	UPROPERTY(EditDefaultsOnly)
+	UPROPERTY()
 	TArray<FString> Objectives;
 };

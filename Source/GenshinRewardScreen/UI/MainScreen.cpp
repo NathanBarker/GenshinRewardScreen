@@ -1,12 +1,9 @@
 // Nathan Barker GenshinRewardScreen Personal Training Project. 
 
-
 #include "MainScreen.h"
 
 #include "Currency/CurrencyView.h"
 #include "GenshinRewardScreen/HelperClasses/QuestObjectiveData.h"
-#include "Quests/QuestEntryItem.h"
-#include "Quests/QuestRewards.h"
 
 
 void UMainScreen::NativeOnActivated()
@@ -17,8 +14,7 @@ void UMainScreen::NativeOnActivated()
 		GenerateQuestData();
 	}
 	GetDesiredFocusTarget()->SetFocus();
-
-	// Get all CurrencyViews
+	
 	for (uint8 i = 0; i < CurrencyHorizontalLayout->GetAllChildren().Num(); i++)
 	{
 		if (UCurrencyView* CurrencyView = Cast<UCurrencyView>(CurrencyHorizontalLayout->GetAllChildren()[i]))

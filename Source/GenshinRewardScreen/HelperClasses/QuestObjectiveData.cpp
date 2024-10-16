@@ -31,7 +31,6 @@ TArray<UQuestEntryItem*> QuestObjectiveData::CreateQuests(TArray<FQuest>& QuestR
 			if (ObjectiveDetail.Value == MaxSubTaskAmount) CurrentObjectiveProgress++;
 		}
 
-		// todo: check for 0 objectives
 		if (CurrentObjectiveProgress != 0.0f)
 		{
 			float Progress = CurrentObjectiveProgress / ObjectiveCount;
@@ -43,11 +42,11 @@ TArray<UQuestEntryItem*> QuestObjectiveData::CreateQuests(TArray<FQuest>& QuestR
 		}
 		QuestObject->Experience = rand() % ExperienceRewardMax + ExperienceRewardMin;
 
-		int RewardCount = rand() % 3;
+		int RewardCount = rand() % 4;
 		for (int i = 0; i <= RewardCount; i++)
 		{
 			// -1 here to avoid choosing XP, we have already defined XP
-			ECurrency RewardEntryCurrencyType = static_cast<ECurrency>(rand() % Crystal);
+			ECurrency RewardEntryCurrencyType = static_cast<ECurrency>(rand() % (Num - 1));
 			bool AlreadyHasRewardType = false;
 			for (const FReward& Reward : QuestObject->Rewards)
 			{

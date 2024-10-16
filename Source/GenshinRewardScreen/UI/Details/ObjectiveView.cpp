@@ -7,18 +7,8 @@
 void UObjectiveView::NativeOnListItemObjectSet(UObject* ListItemObject)
 {
 	IUserObjectListEntry::NativeOnListItemObjectSet(ListItemObject);
-	UObjectiveItem* Item = Cast<UObjectiveItem>(ListItemObject);
+	const UObjectiveItem* Item = Cast<UObjectiveItem>(ListItemObject);
 	UpdateObjectiveText(Item->ObjectiveText);
-}
-
-void UObjectiveView::NativeOnDeselected(bool bBroadcast)
-{
-	Super::NativeOnDeselected(bBroadcast);
-}
-
-void UObjectiveView::NativeOnSelected(bool bBroadcast)
-{
-	Super::NativeOnSelected(bBroadcast);
 }
 
 void UObjectiveView::UpdateObjectiveText(const FString& Objective) const

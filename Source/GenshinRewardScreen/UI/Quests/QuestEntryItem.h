@@ -17,21 +17,17 @@ class GENSHINREWARDSCREEN_API UQuestEntryItem : public UObject
 
 public:
 	UQuestEntryItem() = default;
-	UPROPERTY()
-	FString Name;
-
-	UPROPERTY()
-	FString Description;
 	
-	TMap<FString, int> Objectives;
-
-	UPROPERTY()
+	FString Name = "";
+	
+	FString Description = "";
+	
+	TMap<FString, int> Objectives = {};
+	
 	float Progress = 0;
-
-	UPROPERTY()
-	TArray<FReward> Rewards;
-
-	UPROPERTY()
+	
+	TArray<FReward> Rewards = {};
+	
 	int Experience = 0;
 
 	bool operator< (const UQuestEntryItem& Other) const
