@@ -5,27 +5,40 @@
 #include "Currency/CurrencyView.h"
 #include "GenshinRewardScreen/HelperClasses/QuestObjectiveData.h"
 
-
-void UMainScreen::NativeOnActivated()
+void UMainScreen::NativeConstruct()
 {
-	Super::NativeOnActivated();
+	Super::NativeConstruct();
+	
+	PlayerInventory = NewObject<UInventory>();
+	
 	if (QuestDataObjects.IsEmpty())
 	{
 		GenerateQuestData();
 	}
+}
+
+void UMainScreen::NativeOnActivated()
+{
+	Super::NativeOnActivated();
+
 	GetDesiredFocusTarget()->SetFocus();
 	
-	for (uint8 i = 0; i < CurrencyHorizontalLayout->GetAllChildren().Num(); i++)
+	for (int i = 0; i < CurrencyHorizontalLayout->GetAllChildren().Num(); i++)
 	{
 		if (UCurrencyView* CurrencyView = Cast<UCurrencyView>(CurrencyHorizontalLayout->GetAllChildren()[i]))
 		{
 			CurrencyViews.Emplace(CurrencyView);
-			CurrencyView->InitCurrencyView();
+			
+			if (IsValid(PlayerInventory))
+			{
+				CurrencyView->SetCurrencyText(PlayerInventory->GetCurrencyAmount(i));
+			}
 		}
 		else
 		{
 			UE_LOG(LogTemp, Error,
 			       TEXT("Casting of Currency UWidget Type failed, widget will not be added to CurrencyViews array"));
+			return;
 		}
 	}
 }

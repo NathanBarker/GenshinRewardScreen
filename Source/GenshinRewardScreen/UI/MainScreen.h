@@ -7,6 +7,7 @@
 #include "Components/HorizontalBox.h"
 #include "Components/ListView.h"
 #include "GenshinRewardScreen/DataModel/QuestModel.h"
+#include "GenshinRewardScreen/DataModel/Inventory.h"
 #include "Quests/QuestEntryItem.h"
 
 #include "MainScreen.generated.h"
@@ -60,11 +61,15 @@ class GENSHINREWARDSCREEN_API UMainScreen : public UCommonActivatableWidget
 
 	UPROPERTY(EditDefaultsOnly)
 	int MaxSubTaskAmount = 0;
+
+	UPROPERTY()
+	TObjectPtr<UInventory> PlayerInventory = nullptr; 
 	
 	void GenerateQuestData();
 	void InitialiseQuests();
 
 protected:
+	virtual void NativeConstruct() override;
 	virtual void NativeOnActivated() override;
 	virtual UWidget* NativeGetDesiredFocusTarget() const override;
 };

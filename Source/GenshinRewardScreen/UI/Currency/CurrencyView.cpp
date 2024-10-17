@@ -8,18 +8,13 @@ void UCurrencyView::NativePreConstruct()
 	SetCurrencyIconBrush(IconTexture);
 }
 
-void UCurrencyView::InitCurrencyView() const
+void UCurrencyView::SetCurrencyIconBrush(UTexture2D* Icon)
 {
-	SetCurrencyText(0);
+	CurrencyIcon->SetBrushFromTexture(Icon);
 }
 
-void UCurrencyView::SetCurrencyIconBrush(UTexture2D* currencyIcon) const
+void UCurrencyView::SetCurrencyText(const int& CurrencyAmount)
 {
-	CurrencyIcon->SetBrushFromTexture(currencyIcon);
-}
-
-void UCurrencyView::SetCurrencyText(const uint8 currencyAmount) const
-{
-	FString currencyText = FString::FromInt(currencyAmount);
-	CurrencyText->SetText(FText::FromString(currencyText));
+	const FString AmountText = FString::FromInt(CurrencyAmount);
+	CurrencyText->SetText(FText::FromString(AmountText));
 }
