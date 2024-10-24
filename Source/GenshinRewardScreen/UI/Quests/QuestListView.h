@@ -12,10 +12,12 @@
 #include "QuestEntryItem.h"
 #include "QuestProgressionView.h"
 #include "QuestRewardView.h"
+#include "Components/WidgetSwitcher.h"
 
 #include "QuestListView.generated.h"
 
 GENSHINREWARDSCREEN_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(UI_Message_On_Quest_Selection_Changed);
+GENSHINREWARDSCREEN_API UE_DECLARE_GAMEPLAY_TAG_EXTERN(UI_Message_On_Quest_Claim);
 
 /**
  * 
@@ -26,21 +28,16 @@ class GENSHINREWARDSCREEN_API UQuestListView : public UCommonButtonBase, public 
 	GENERATED_BODY()
 
 protected:
-	// IUserObjectListEntry
-	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
-	// IUserObjectListEntry
-	
-	virtual void NativeConstruct() override;
-	virtual void NativeOnSelected(bool bBroadcast) override;
-	virtual void NativeOnClicked() override;
-	virtual void NativeOnDeselected(bool bBroadcast) override;
-
-	void SetRewardsWidgets(UQuestEntryItem* Item);
 
 	UPROPERTY(EditDefaultsOnly)
 	FDataTableRowHandle DetailsInput;
 	
 	FUIActionBindingHandle DetailsInputHandle;
+
+	UPROPERTY(EditDefaultsOnly)
+	FDataTableRowHandle ClaimInput;
+
+	FUIActionBindingHandle ClaimInputHandle;
 	
 	UPROPERTY()
 	TObjectPtr<UQuestEntryItem> QuestEntryItem = nullptr;
@@ -49,10 +46,16 @@ protected:
 	TObjectPtr<UTextBlock> QuestTitle = nullptr;
 
 	UPROPERTY(meta=(BindWidget))
+	TObjectPtr<UImage> CompletedBg = nullptr;
+
+	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UQuestProgressionView> WBP_QuestProgression = nullptr;
 
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UHorizontalBox> RewardsContainer;
+
+	UPROPERTY(meta=(BindWidget))
+	TObjectPtr<UWidgetSwitcher> ProgressSwitcher = nullptr;;
 
 	UPROPERTY(EditDefaultsOnly)
 	TSubclassOf<UQuestRewardView> QuestRewardTemplate;
@@ -66,4 +69,16 @@ protected:
 
 	UPROPERTY()
 	TObjectPtr<UGameplayMessageSubsystem> MessageSubsystem = nullptr;
+	
+	// IUserObjectListEntry
+	virtual void NativeOnListItemObjectSet(UObject* ListItemObject) override;
+	// IUserObjectListEntry
+	
+	virtual void NativeConstruct() override;
+	virtual void NativeOnSelected(bool bBroadcast) override;
+	virtual void NativeOnClicked() override;
+	virtual void NativeOnDeselected(bool bBroadcast) override;
+
+	void SetRewardsWidgets(UQuestEntryItem* Item);
+	void ClaimRewardCallback();
 };

@@ -8,7 +8,10 @@
 #include "Components/ListView.h"
 #include "GenshinRewardScreen/DataModel/QuestModel.h"
 #include "GenshinRewardScreen/DataModel/Inventory.h"
+#include "GenshinRewardScreen/GameplayMessages/GameplayMessages.h"
+#include "GameFramework/GameplayMessageSubsystem.h"
 #include "Quests/QuestEntryItem.h"
+#include "Input/CommonUIInputTypes.h"
 
 #include "MainScreen.generated.h"
 
@@ -39,6 +42,9 @@ class GENSHINREWARDSCREEN_API UMainScreen : public UCommonActivatableWidget
 
 	UPROPERTY()
 	TArray<UQuestEntryItem*> QuestDataObjects;
+	
+	UPROPERTY()
+	TObjectPtr<UGameplayMessageSubsystem> MessageSubsystem = nullptr;
 
 	//
 	// PrimoGen = 0, Ruby = 1, Crystal = 2
@@ -67,6 +73,8 @@ class GENSHINREWARDSCREEN_API UMainScreen : public UCommonActivatableWidget
 	
 	void GenerateQuestData();
 	void InitialiseQuests();
+	void ClaimQuest(FGameplayTag InChannel, const FClaimMessage& InMessage);
+	void UpdateCurrencyViews(const TArray<FReward>& Rewards);
 
 protected:
 	virtual void NativeConstruct() override;

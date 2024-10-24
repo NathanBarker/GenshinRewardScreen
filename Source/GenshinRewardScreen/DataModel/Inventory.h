@@ -10,9 +10,9 @@ class UInventory : public UObject
 	GENERATED_BODY()
 	
 public:
-	void SetCurrencyAmount(const int& Currency, const int& NewAmount)
+	void AddCurrencyAmount(const int& Currency, const int& NewAmount)
 	{
-		CurrencyList[Currency] = NewAmount;
+		CurrencyList[Currency] =+ NewAmount;
 	};
 
 	int GetCurrencyAmount(const int& Currency)

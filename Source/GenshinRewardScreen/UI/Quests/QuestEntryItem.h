@@ -30,6 +30,8 @@ public:
 	
 	int Experience = 0;
 
+	bool isCompleted = false;
+
 	bool operator< (const UQuestEntryItem& Other) const
 	{
 		return Other.Progress < Progress;
