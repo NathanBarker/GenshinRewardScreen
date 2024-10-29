@@ -46,6 +46,8 @@ void UQuestListView::NativeOnSelected(bool bBroadcast)
 {
 	Super::NativeOnSelected(bBroadcast);
 
+	CompletedBg->SetVisibility(ESlateVisibility::Collapsed);
+
 	if (DetailsInputHandle.IsValid()) return;
 
 	if (!DetailsInput.IsNull())
@@ -94,9 +96,26 @@ void UQuestListView::NativeOnClicked()
 	MessageSubsystem->BroadcastMessage(UI_Message_On_Quest_Selection_Changed, OutgoingMessage);
 }
 
+void UQuestListView::NativeOnUnhovered()
+{
+	Super::NativeOnUnhovered();
+	CompletedBg->SetVisibility(QuestEntryItem->isCompleted
+		                           ? ESlateVisibility::HitTestInvisible
+		                           : ESlateVisibility::Collapsed);
+}
+
+void UQuestListView::NativeOnHovered()
+{
+	Super::NativeOnHovered();
+	CompletedBg->SetVisibility(ESlateVisibility::Collapsed);
+}
+
 void UQuestListView::NativeOnDeselected(bool bBroadcast)
 {
 	Super::NativeOnDeselected(bBroadcast);
+	CompletedBg->SetVisibility(QuestEntryItem->isCompleted
+		                           ? ESlateVisibility::HitTestInvisible
+		                           : ESlateVisibility::Collapsed);
 	DetailsInputHandle.Unregister();
 	ClaimInputHandle.Unregister();
 }

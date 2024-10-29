@@ -77,6 +77,8 @@ protected:
 	virtual void NativeConstruct() override;
 	virtual void NativeOnSelected(bool bBroadcast) override;
 	virtual void NativeOnClicked() override;
+	virtual void NativeOnUnhovered() override;
+	virtual void NativeOnHovered() override;
 	virtual void NativeOnDeselected(bool bBroadcast) override;
 
 	void SetRewardsWidgets(UQuestEntryItem* Item);
