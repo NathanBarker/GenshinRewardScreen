@@ -7,7 +7,7 @@
 #include "CommonUserWidget.h"
 #include "Details/DetailsPanel.h"
 #include "MainScreen.h"
-#include "GenshinRewardScreen/GameplayMessages/GameplayMessages.h"
+#include "GenshinRewardScreen/Payloads/UIMessagePayloads.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
 #include "Input/CommonUIInputTypes.h"
 

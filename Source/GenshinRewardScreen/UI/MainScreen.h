@@ -6,9 +6,9 @@
 #include "CommonActivatableWidget.h"
 #include "Components/HorizontalBox.h"
 #include "Components/ListView.h"
-#include "GenshinRewardScreen/DataModel/QuestModel.h"
-#include "GenshinRewardScreen/DataModel/Inventory.h"
-#include "GenshinRewardScreen/GameplayMessages/GameplayMessages.h"
+#include "GenshinRewardScreen/GameData/QuestModel.h"
+#include "GenshinRewardScreen/GameData/Inventory.h"
+#include "GenshinRewardScreen/Payloads/UIMessagePayloads.h"
 #include "GameFramework/GameplayMessageSubsystem.h"
 #include "Quests/QuestEntryItem.h"
 #include "Input/CommonUIInputTypes.h"
@@ -51,22 +51,22 @@ class GENSHINREWARDSCREEN_API UMainScreen : public UCommonActivatableWidget
 	// MAX AMOUNTS
 	// Primogen = 50, Ruby = 99, Crystal = 10, 
 	UPROPERTY(EditDefaultsOnly)
-	TArray<int> MaxCurrencyRewards;
+	TArray<int32> MaxCurrencyRewards;
 
 	// MIN AMOUNTS
 	// Primogen = 1, Ruby = 10, Crystal = 1
 	UPROPERTY(EditDefaultsOnly)
-	TArray<int> MinCurrencyRewards;
+	TArray<int32> MinCurrencyRewards;
 	//
 
 	UPROPERTY(EditDefaultsOnly)
-	int ExperienceRewardMax = 0;
+	int32 ExperienceRewardMax = 0;
 
 	UPROPERTY(EditDefaultsOnly)
-	int ExperienceRewardMin = 0;
+	int32 ExperienceRewardMin = 0;
 
 	UPROPERTY(EditDefaultsOnly)
-	int MaxSubTaskAmount = 0;
+	int32 MaxSubTaskAmount = 0;
 
 	UPROPERTY()
 	TObjectPtr<UInventory> PlayerInventory = nullptr; 

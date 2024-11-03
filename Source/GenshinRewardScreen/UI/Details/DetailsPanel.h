@@ -7,7 +7,7 @@
 #include "Components/HorizontalBox.h"
 #include "Components/ListView.h"
 #include "Components/TextBlock.h"
-#include "GenshinRewardScreen/GameplayMessages/GameplayMessages.h"
+#include "GenshinRewardScreen/Payloads/UIMessagePayloads.h"
 #include "GenshinRewardScreen/UI/Quests/QuestProgressionView.h"
 #include "Rewards/RewardView.h"
 #include "DetailsPanel.generated.h"

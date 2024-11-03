@@ -1,7 +1,8 @@
-// Nathan Barker GenshinRewardScreen Personal Training Project. 
+// Nathan Barker GenshinRewardScreen Personal Training Project.
+
 #pragma once
 
-#include "GenshinRewardScreen/DataModel/CurrencyModel.h"
+#include "GenshinRewardScreen/GameData/CurrencyModel.h"
 #include "QuestRewards.generated.h"
 
 USTRUCT()
@@ -14,7 +15,7 @@ struct FReward
 	int CurrencyAmount = 0;
 
 	FReward() = default;
-	FReward(const ECurrency& Type, const int& MaxCurrencyAmount, const int& MinCurrencyAmount);
+	FReward(const ECurrency& Type, const int32& MaxCurrencyAmount, const int32& MinCurrencyAmount);
 
 	bool operator< (const FReward& Other) const
 	{

@@ -3,7 +3,7 @@
 #include "MainScreen.h"
 
 #include "Currency/CurrencyView.h"
-#include "GenshinRewardScreen/HelperClasses/QuestObjectiveData.h"
+#include "GenshinRewardScreen/HelperClasses/QuestUtilities.h"
 #include "Quests/QuestListView.h"
 
 void UMainScreen::NativeConstruct()
@@ -31,7 +31,7 @@ void UMainScreen::NativeOnActivated()
 
 	GetDesiredFocusTarget()->SetFocus();
 
-	for (int i = 0; i < CurrencyHorizontalLayout->GetAllChildren().Num(); i++)
+	for (int32 i = 0; i < CurrencyHorizontalLayout->GetAllChildren().Num(); i++)
 	{
 		if (UCurrencyView* CurrencyView = Cast<UCurrencyView>(CurrencyHorizontalLayout->GetAllChildren()[i]))
 		{
@@ -88,7 +88,7 @@ void UMainScreen::ClaimQuest(FGameplayTag InChannel, const FClaimMessage& InMess
 
 void UMainScreen::UpdateCurrencyViews(const TArray<FReward>& Rewards)
 {
-	for (int i = 0; i < Rewards.Num(); i++)
+	for (int32 i = 0; i < Rewards.Num(); i++)
 	{
 		if (IsValid(PlayerInventory))
 		{

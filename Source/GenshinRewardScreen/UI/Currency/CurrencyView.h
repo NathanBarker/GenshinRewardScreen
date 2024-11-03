@@ -31,5 +31,5 @@ class GENSHINREWARDSCREEN_API UCurrencyView : public UCommonUserWidget
 public:
 	virtual void NativePreConstruct() override;
 	void SetCurrencyIconBrush(UTexture2D* Icon);
-	void SetCurrencyText(const int& CurrencyAmount);
+	void SetCurrencyText(const int32& CurrencyAmount);
 };

@@ -22,13 +22,13 @@ public:
 	
 	FString Description = "";
 	
-	TMap<FString, int> Objectives = {};
+	TMap<FString, int32> Objectives = {};
 	
-	float Progress = 0;
+	float Progress = 0.0f;
 	
 	TArray<FReward> Rewards = {};
 	
-	int Experience = 0;
+	int32 Experience = 0;
 
 	bool isCompleted = false;
 

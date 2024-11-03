@@ -3,7 +3,7 @@
 
 #include "RewardView.h"
 
-void URewardView::InitialiseReward(const ECurrency& CurrencyType, const int Amount)
+void URewardView::InitialiseReward(const ECurrency& CurrencyType, const int32& Amount)
 {
 	UTexture2D* BackgroundTexture = nullptr;
 	UTexture2D* IconTexture = nullptr;

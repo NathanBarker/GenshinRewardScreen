@@ -1,7 +1,7 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Nathan Barker GenshinRewardScreen Personal Training Project. 
 
 #include "QuestListView.h"
-#include "GenshinRewardScreen/GameplayMessages/GameplayMessages.h"
+#include "GenshinRewardScreen/Payloads/UIMessagePayloads.h"
 #include "Input/CommonUIInputTypes.h"
 #include "QuestEntryItem.h"
 #include "QuestRewardView.h"
@@ -29,7 +29,7 @@ void UQuestListView::NativeOnListItemObjectSet(UObject* ListItemObject)
 void UQuestListView::NativeConstruct()
 {
 	Super::NativeConstruct();
-	for (int i = 0; i < ECurrency::Num; i++)
+	for (int32 i = 0; i < ECurrency::Num; i++)
 	{
 		UQuestRewardView* RewardView = CreateWidget<UQuestRewardView>(this, QuestRewardTemplate);
 		if (IsValid(RewardView))
@@ -86,8 +86,8 @@ void UQuestListView::NativeOnClicked()
 	FDetailsPanelMessage OutgoingMessage;
 
 	// Define Message Data
-	OutgoingMessage.QuestTitle = QuestEntryItem->Name;
-	OutgoingMessage.QuestDescription = QuestEntryItem->Description;
+	OutgoingMessage.QuestTitle = FText::FromString(QuestEntryItem->Name);
+	OutgoingMessage.QuestDescription =FText::FromString(QuestEntryItem->Description);
 	OutgoingMessage.Rewards = QuestEntryItem->Rewards;
 	OutgoingMessage.ObjectiveDetails = QuestEntryItem->Objectives;
 	OutgoingMessage.QuestProgress = QuestEntryItem->Progress;

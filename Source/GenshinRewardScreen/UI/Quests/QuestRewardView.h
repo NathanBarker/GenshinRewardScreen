@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+// Nathan Barker GenshinRewardScreen Personal Training Project. 
 
 #pragma once
 
@@ -26,5 +26,5 @@ class GENSHINREWARDSCREEN_API UQuestRewardView : public UCommonUserWidget
 	TObjectPtr<UTextBlock> RewardAmount = nullptr;
 
 public:
-	void InitializeReward(UTexture2D* Background, UTexture2D* RewardIcon, const int& Amount) const;
+	void InitializeReward(UTexture2D* Background, UTexture2D* RewardIcon, const int32& Amount) const;
 };

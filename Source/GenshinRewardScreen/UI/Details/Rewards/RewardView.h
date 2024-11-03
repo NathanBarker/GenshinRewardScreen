@@ -6,7 +6,7 @@
 #include "CommonActivatableWidget.h"
 #include "Components/Image.h"
 #include "Components/TextBlock.h"
-#include "GenshinRewardScreen/DataModel/CurrencyModel.h"
+#include "GenshinRewardScreen/GameData/CurrencyModel.h"
 #include "RewardView.generated.h"
 
 /**
@@ -19,7 +19,7 @@ class GENSHINREWARDSCREEN_API URewardView : public UCommonActivatableWidget
 
 public:
 
-	void InitialiseReward(const ECurrency& CurrencyType, const int Amount);
+	void InitialiseReward(const ECurrency& CurrencyType, const int32& Amount);
 
 private:
 
