@@ -4,28 +4,27 @@
 
 #include "CoreMinimal.h"
 #include "CommonActivatableWidget.h"
-#include "Components/HorizontalBox.h"
-#include "Components/ListView.h"
-#include "Components/TextBlock.h"
 #include "GenshinRewardScreen/Payloads/UIMessagePayloads.h"
 #include "GenshinRewardScreen/UI/Quests/QuestProgressionView.h"
 #include "Rewards/RewardView.h"
 #include "DetailsPanel.generated.h"
 
+class UTextBlock;
+class UHorizontalBox;
+class UListView;
+
 /**
  * 
  */
-UCLASS()
+UCLASS(Abstract)
 class GENSHINREWARDSCREEN_API UDetailsPanel : public UCommonActivatableWidget
 {
 	GENERATED_BODY()
 
 public:
-
-	void InitialiseDetailsPanel(const FDetailsPanelMessage& InMessage) const;
+	void InitialiseDetailsPanel(const FDetailsPanelMessage& InMessage);
 
 protected:
-
 	virtual void NativeOnDeactivated() override;
 
 private:
@@ -48,5 +47,11 @@ private:
 	TObjectPtr<UHorizontalBox> RewardsContainer = nullptr;
 
 	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<URewardView> RewardTemplate;
+	TSubclassOf<URewardView> RewardTemplate = nullptr;
+
+	UPROPERTY(EditDefaultsOnly)
+	FMargin RewardViewPadding = {0, 0, 50, 0};
+
+	void DisplayRewards(const int32& XPAmount, const TArray<FReward>& Rewards);
+	void ConfigureReward(URewardView& RewardView, const ECurrency& CurrencyType, const int32 CurrencyAmount);
 };

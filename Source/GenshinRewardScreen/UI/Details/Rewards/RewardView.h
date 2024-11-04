@@ -4,15 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "CommonActivatableWidget.h"
-#include "Components/Image.h"
-#include "Components/TextBlock.h"
 #include "GenshinRewardScreen/GameData/CurrencyModel.h"
 #include "RewardView.generated.h"
+
+class UTextBlock;
+class UCommonLazyImage;
 
 /**
  * 
  */
-UCLASS()
+UCLASS(Abstract)
 class GENSHINREWARDSCREEN_API URewardView : public UCommonActivatableWidget
 {
 	GENERATED_BODY()
@@ -27,18 +28,21 @@ private:
 	TObjectPtr<UTextBlock> RewardAmount = nullptr;
 
 	UPROPERTY(meta=(BindWidget))
-	TObjectPtr<UImage> RewardIcon = nullptr;
+	TObjectPtr<UCommonLazyImage> RewardIcon = nullptr;
 
 	UPROPERTY(meta=(BindWidget))
-	TObjectPtr<UImage> RewardBackground = nullptr;
+	TObjectPtr<UCommonLazyImage> RewardBackground = nullptr;
 
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UTextBlock> XPText = nullptr;
 	
 	// PrimoGen = 0, Ruby = 1, Crystal = 2
 	UPROPERTY(EditDefaultsOnly)
-	TArray<UTexture2D*> RewardBackgrounds;
+	TArray<TSoftObjectPtr<UTexture2D>> RewardBackgrounds;
 
 	UPROPERTY(EditDefaultsOnly)
-	TArray<UTexture2D*> RewardIcons;
+	TArray<TSoftObjectPtr<UTexture2D>> RewardIcons;
+
+	TSoftObjectPtr<UTexture2D> BackgroundTexture = nullptr;
+	TSoftObjectPtr<UTexture2D> IconTexture = nullptr;
 };

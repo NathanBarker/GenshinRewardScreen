@@ -5,13 +5,14 @@
 #include "Blueprint/IUserObjectListEntry.h"
 #include "CoreMinimal.h"
 #include "CommonButtonBase.h"
-#include "Components/TextBlock.h"
 #include "ObjectiveView.generated.h"
+
+class UTextBlock;
 
 /**
  * 
  */
-UCLASS()
+UCLASS(Abstract)
 class GENSHINREWARDSCREEN_API UObjectiveView : public UCommonButtonBase, public IUserObjectListEntry
 {
 	GENERATED_BODY()

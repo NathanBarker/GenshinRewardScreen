@@ -2,6 +2,8 @@
 
 #include "MainScreen.h"
 
+#include "Components/HorizontalBox.h"
+#include "Components/ListView.h"
 #include "Currency/CurrencyView.h"
 #include "GenshinRewardScreen/HelperClasses/QuestUtilities.h"
 #include "Quests/QuestListView.h"

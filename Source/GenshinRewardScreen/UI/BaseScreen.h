@@ -16,23 +16,28 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(Abstract)
 class GENSHINREWARDSCREEN_API UBaseScreen : public UCommonUserWidget
 {
 	GENERATED_BODY()
+
+protected:
+	
+	virtual void NativeConstruct() override;
+
+private:
 	
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UCommonActivatableWidgetStack> MainMenuStack = nullptr;
 
 	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<UMainScreen> MainScreenTemplate;
-	
+	TSubclassOf<UMainScreen> MainScreenTemplate = nullptr;
+
 	UPROPERTY(EditDefaultsOnly)
-	TSubclassOf<UDetailsPanel> DetailsPanelTemplate;
+	TSubclassOf<UDetailsPanel> DetailsPanelTemplate = nullptr;
 
 	UPROPERTY()
 	TObjectPtr<UGameplayMessageSubsystem> MessageSubsystem = nullptr;
 
-	virtual void NativeConstruct() override;
 	void ActivateDetailsPanel(FGameplayTag InChannel, const FDetailsPanelMessage& InMessage);
 };

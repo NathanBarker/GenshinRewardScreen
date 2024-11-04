@@ -4,10 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "CommonUserWidget.h"
-#include "Components/ProgressBar.h"
-#include "Components/TextBlock.h"
 
 #include "QuestProgressionView.generated.h"
+
+class UTextBlock;
+class UProgressBar;
 
 /**
  * 
@@ -23,8 +24,9 @@ class GENSHINREWARDSCREEN_API UQuestProgressionView : public UCommonUserWidget
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UTextBlock> QuestProgression = nullptr;
 
-	virtual void NativePreConstruct() override;
-
 public:
 	void SetProgression(const float& Progression) const;
+
+protected:
+	virtual void NativePreConstruct() override;
 };

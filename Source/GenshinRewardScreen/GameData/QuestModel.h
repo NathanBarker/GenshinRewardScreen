@@ -16,5 +16,5 @@ struct FQuest : public FTableRowBase
 	FString Description = "";
 
 	UPROPERTY()
-	TArray<FString> Objectives;
+	TArray<FString> Objectives = {};
 };

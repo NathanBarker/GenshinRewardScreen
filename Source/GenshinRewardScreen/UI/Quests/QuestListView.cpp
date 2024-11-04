@@ -1,6 +1,12 @@
 // Nathan Barker GenshinRewardScreen Personal Training Project. 
 
 #include "QuestListView.h"
+
+#include "Components/TextBlock.h"
+#include "Components/HorizontalBox.h"
+#include "CommonUI/Public/CommonLazyImage.h"
+#include "Components/ListView.h"
+#include "Components/WidgetSwitcher.h"
 #include "GenshinRewardScreen/Payloads/UIMessagePayloads.h"
 #include "Input/CommonUIInputTypes.h"
 #include "QuestEntryItem.h"

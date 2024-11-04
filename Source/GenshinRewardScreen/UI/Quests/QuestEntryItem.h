@@ -10,7 +10,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(Abstract)
 class GENSHINREWARDSCREEN_API UQuestEntryItem : public UObject
 {
 	GENERATED_BODY()

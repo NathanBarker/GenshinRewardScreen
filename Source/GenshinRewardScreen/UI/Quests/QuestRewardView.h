@@ -4,23 +4,24 @@
 
 #include "CoreMinimal.h"
 #include "CommonUserWidget.h"
-#include "Components/Image.h"
-#include "Components/TextBlock.h"
 #include "QuestRewardView.generated.h"
+
+class UTextBlock;
+class UCommonLazyImage;
 
 /**
  * 
  */
-UCLASS()
+UCLASS(Abstract)
 class GENSHINREWARDSCREEN_API UQuestRewardView : public UCommonUserWidget
 {
 	GENERATED_BODY()
 
 	UPROPERTY(meta=(BindWidget))
-	TObjectPtr<UImage> RewardIcon = nullptr;
+	TObjectPtr<UCommonLazyImage> RewardIcon = nullptr;
 
 	UPROPERTY(meta=(BindWidget))
-	TObjectPtr<UImage> RewardBackground = nullptr;
+	TObjectPtr<UCommonLazyImage> RewardBackground = nullptr;
 
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UTextBlock> RewardAmount = nullptr;

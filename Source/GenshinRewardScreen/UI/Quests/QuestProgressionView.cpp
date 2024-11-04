@@ -2,6 +2,9 @@
 
 #include "QuestProgressionView.h"
 
+#include "Components/TextBlock.h"
+#include "Components/ProgressBar.h"
+
 void UQuestProgressionView::NativePreConstruct()
 {
 	Super::NativePreConstruct();

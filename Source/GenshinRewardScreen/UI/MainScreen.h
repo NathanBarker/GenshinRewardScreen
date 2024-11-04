@@ -4,8 +4,6 @@
 
 #include "CoreMinimal.h"
 #include "CommonActivatableWidget.h"
-#include "Components/HorizontalBox.h"
-#include "Components/ListView.h"
 #include "GenshinRewardScreen/GameData/QuestModel.h"
 #include "GenshinRewardScreen/GameData/Inventory.h"
 #include "GenshinRewardScreen/Payloads/UIMessagePayloads.h"
@@ -15,16 +13,26 @@
 
 #include "MainScreen.generated.h"
 
+class UHorizontalBox;
+class UListView;
 class UCurrencyView;
 
 /**
  * 
  */
-UCLASS()
+UCLASS(Abstract)
 class GENSHINREWARDSCREEN_API UMainScreen : public UCommonActivatableWidget
 {
 	GENERATED_BODY()
 
+protected:
+	
+	virtual void NativeConstruct() override;
+	virtual void NativeOnActivated() override;
+	virtual UWidget* NativeGetDesiredFocusTarget() const override;
+
+private:
+	
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UHorizontalBox> CurrencyHorizontalLayout = nullptr;
 
@@ -42,7 +50,7 @@ class GENSHINREWARDSCREEN_API UMainScreen : public UCommonActivatableWidget
 
 	UPROPERTY()
 	TArray<UQuestEntryItem*> QuestDataObjects;
-	
+
 	UPROPERTY()
 	TObjectPtr<UGameplayMessageSubsystem> MessageSubsystem = nullptr;
 
@@ -69,15 +77,10 @@ class GENSHINREWARDSCREEN_API UMainScreen : public UCommonActivatableWidget
 	int32 MaxSubTaskAmount = 0;
 
 	UPROPERTY()
-	TObjectPtr<UInventory> PlayerInventory = nullptr; 
-	
+	TObjectPtr<UInventory> PlayerInventory = nullptr;
+
 	void GenerateQuestData();
 	void InitialiseQuests();
 	void ClaimQuest(FGameplayTag InChannel, const FClaimMessage& InMessage);
 	void UpdateCurrencyViews(const TArray<FReward>& Rewards);
-
-protected:
-	virtual void NativeConstruct() override;
-	virtual void NativeOnActivated() override;
-	virtual UWidget* NativeGetDesiredFocusTarget() const override;
 };

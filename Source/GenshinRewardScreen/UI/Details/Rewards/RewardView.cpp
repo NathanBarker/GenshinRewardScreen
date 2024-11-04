@@ -1,13 +1,12 @@
 // Nathan Barker GenshinRewardScreen Personal Training Project. 
 
-
 #include "RewardView.h"
+
+#include "CommonUI/Public/CommonLazyImage.h"
+#include "Components/TextBlock.h"
 
 void URewardView::InitialiseReward(const ECurrency& CurrencyType, const int32& Amount)
 {
-	UTexture2D* BackgroundTexture = nullptr;
-	UTexture2D* IconTexture = nullptr;
-
 	XPText->SetVisibility(ESlateVisibility::Hidden);
 
 	if (RewardBackgrounds.IsEmpty())
@@ -30,14 +29,9 @@ void URewardView::InitialiseReward(const ECurrency& CurrencyType, const int32& A
 	{
 		IconTexture = RewardIcons[CurrencyType];
 	}
-	if (!BackgroundTexture || !IconTexture)
-	{
-		UE_LOG(LogTemp, Error, TEXT("Reward View failed to get created"));
-		return;
-	}
 
-	RewardBackground->SetBrushFromTexture(BackgroundTexture);
-	RewardIcon->SetBrushFromTexture(IconTexture);
+	RewardBackground->SetBrushFromLazyTexture(BackgroundTexture);
+	RewardIcon->SetBrushFromLazyTexture(IconTexture);
 	RewardAmount->SetText(FText::FromString(FString::FromInt(Amount)));
 
 	if(CurrencyType == XP)
