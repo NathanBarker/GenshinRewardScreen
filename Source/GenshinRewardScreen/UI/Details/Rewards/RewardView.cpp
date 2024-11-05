@@ -32,7 +32,7 @@ void URewardView::InitialiseReward(const ECurrency& CurrencyType, const int32& A
 
 	RewardBackground->SetBrushFromLazyTexture(BackgroundTexture);
 	RewardIcon->SetBrushFromLazyTexture(IconTexture);
-	RewardAmount->SetText(FText::FromString(FString::FromInt(Amount)));
+	RewardAmount->SetText(FText::AsNumber(Amount));
 
 	if(CurrencyType == XP)
 	{

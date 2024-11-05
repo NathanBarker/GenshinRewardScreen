@@ -26,5 +26,5 @@ protected:
 	TObjectPtr<UTextBlock> ObjectiveText = nullptr;
 
 private:
-	void UpdateObjectiveText(const FString& ObjectiveText) const;
+	void UpdateObjectiveText(const FString& ObjectiveText);
 };

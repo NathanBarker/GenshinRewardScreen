@@ -18,6 +18,5 @@ void UCurrencyView::SetCurrencyIconBrush(UTexture2D* Icon)
 
 void UCurrencyView::SetCurrencyText(const int32& CurrencyAmount)
 {
-	const FString AmountText = FString::FromInt(CurrencyAmount);
-	CurrencyText->SetText(FText::FromString(AmountText));
+	CurrencyText->SetText(FText::AsNumber(CurrencyAmount));
 }

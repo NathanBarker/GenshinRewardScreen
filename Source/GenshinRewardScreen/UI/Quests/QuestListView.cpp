@@ -21,7 +21,7 @@ void UQuestListView::NativeOnListItemObjectSet(UObject* ListItemObject)
 	UQuestEntryItem* Item = Cast<UQuestEntryItem>(ListItemObject);
 
 	QuestTitle->SetText(FText::FromString(Item->Name));
-	WBP_QuestProgression->SetProgression(Item->Progress);
+	QuestProgression->SetProgression(Item->Progress);
 
 	SetRewardsWidgets(Item);
 	QuestEntryItem = Item;
@@ -130,8 +130,10 @@ void UQuestListView::SetRewardsWidgets(UQuestEntryItem* Item)
 {
 	for (UWidget* RewardWidget : RewardsContainer->GetAllChildren())
 	{
-		UQuestRewardView* RewardView = Cast<UQuestRewardView>(RewardWidget);
-		RewardView->SetVisibility(ESlateVisibility::Collapsed);
+		if(UQuestRewardView* RewardView = Cast<UQuestRewardView>(RewardWidget))
+		{
+			RewardView->SetVisibility(ESlateVisibility::Collapsed);
+		}
 	}
 
 	Item->Rewards.Sort();
@@ -182,7 +184,7 @@ void UQuestListView::ClaimRewardCallback()
 	ProgressSwitcher->SetActiveWidgetIndex(1);
 
 	FClaimMessage ClaimMessage;
-	ClaimMessage.QuestItem = Cast<UObject>(QuestEntryItem);
+	ClaimMessage.QuestItem = Cast<UQuestEntryItem>(QuestEntryItem);
 
 	CompletedBg->SetVisibility(ESlateVisibility::HitTestInvisible);
 	MessageSubsystem->BroadcastMessage(UI_Message_On_Quest_Claim, ClaimMessage);

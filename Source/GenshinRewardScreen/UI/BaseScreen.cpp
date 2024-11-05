@@ -2,23 +2,27 @@
 
 
 #include "BaseScreen.h"
+
+#include "MainScreen.h"
+#include "Details/DetailsPanel.h"
 #include "Quests/QuestListView.h"
+#include "CommonUI/Public/Widgets/CommonActivatableWidgetContainer.h"
 
 void UBaseScreen::NativeConstruct()
 {
 	Super::NativeConstruct();
-
+	
+	UGameplayMessageSubsystem& MessageSubsystem = UGameplayMessageSubsystem::Get(this);
+	MessageSubsystem.RegisterListener(
+		UI_Message_On_Quest_Selection_Changed, this, &UBaseScreen::ActivateDetailsPanel);
+	
 	if (IsValid(MainScreenTemplate))
 	{
-		UMainScreen* MainScreen = Cast<UMainScreen>(MainMenuStack->AddWidget(MainScreenTemplate));
-		MainScreen->ActivateWidget();
-		MessageSubsystem = UGameplayMessageSubsystem::Get(this);
-		MessageSubsystem->RegisterListener(
-			UI_Message_On_Quest_Selection_Changed, this, &UBaseScreen::ActivateDetailsPanel);
+		MainMenuStack->AddWidget(MainScreenTemplate);
 	}
 	else
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Main Screen failed to get pushed onto the stack"));
+		UE_LOG(LogTemp, Warning, TEXT("Main Screen failed to get pushed onto the stack because the template was null."));
 	}
 }
 

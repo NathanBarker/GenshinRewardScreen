@@ -8,15 +8,18 @@
 #include "GenshinRewardScreen/HelperClasses/QuestUtilities.h"
 #include "Quests/QuestListView.h"
 
+UMainScreen::UMainScreen() : Super()
+{
+	if (!IsValid(PlayerInventory))
+    {
+    	PlayerInventory = NewObject<UInventory>();
+    }
+}
+
 void UMainScreen::NativeConstruct()
 {
 	Super::NativeConstruct();
-
-	if (!IsValid(PlayerInventory))
-	{
-		PlayerInventory = NewObject<UInventory>();
-	}
-
+	
 	if (QuestDataObjects.IsEmpty())
 	{
 		GenerateQuestData();
@@ -75,8 +78,13 @@ void UMainScreen::InitialiseQuests()
 
 void UMainScreen::ClaimQuest(FGameplayTag InChannel, const FClaimMessage& InMessage)
 {
-	UQuestEntryItem* QuestEntryItem = Cast<UQuestEntryItem>(InMessage.QuestItem);
-	int32 IndexOfQuestToClaim = QuestDataObjects.Find(QuestEntryItem);
+	if(!IsValid(InMessage.QuestItem))
+	{
+		UE_LOG(LogTemp, Error, TEXT("Unable to find Quest to claim"))
+		return;
+	}
+	
+	int32 IndexOfQuestToClaim = QuestDataObjects.Find(InMessage.QuestItem);
 
 	QuestDataObjects[IndexOfQuestToClaim]->isCompleted = true;
 
@@ -85,7 +93,7 @@ void UMainScreen::ClaimQuest(FGameplayTag InChannel, const FClaimMessage& InMess
 		PlayerInventory->AddCurrencyAmount(Reward.CurrencyType, Reward.CurrencyAmount);
 	}
 
-	UpdateCurrencyViews(QuestEntryItem->Rewards);
+	UpdateCurrencyViews(InMessage.QuestItem->Rewards);
 }
 
 void UMainScreen::UpdateCurrencyViews(const TArray<FReward>& Rewards)

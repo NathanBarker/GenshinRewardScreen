@@ -18,15 +18,19 @@ class GENSHINREWARDSCREEN_API UQuestProgressionView : public UCommonUserWidget
 {
 	GENERATED_BODY()
 
-	UPROPERTY(meta=(BindWidget))
-	TObjectPtr<UProgressBar> ProgressBar = nullptr;
-
-	UPROPERTY(meta=(BindWidget))
-	TObjectPtr<UTextBlock> QuestProgression = nullptr;
-
 public:
+	
 	void SetProgression(const float& Progression) const;
 
 protected:
+	
 	virtual void NativePreConstruct() override;
+
+private:
+
+	UPROPERTY(meta=(BindWidget))
+    TObjectPtr<UProgressBar> ProgressBar = nullptr;
+    
+    UPROPERTY(meta=(BindWidget))
+    TObjectPtr<UTextBlock> QuestProgression = nullptr;
 };

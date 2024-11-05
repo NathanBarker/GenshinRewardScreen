@@ -9,12 +9,12 @@ struct FQuest : public FTableRowBase
 {
 	GENERATED_BODY()
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	FString Name = "";
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	FString Description = "";
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	TArray<FString> Objectives = {};
 };

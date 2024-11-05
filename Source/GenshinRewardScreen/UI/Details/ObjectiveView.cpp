@@ -9,10 +9,14 @@ void UObjectiveView::NativeOnListItemObjectSet(UObject* ListItemObject)
 {
 	IUserObjectListEntry::NativeOnListItemObjectSet(ListItemObject);
 	const UObjectiveItem* Item = Cast<UObjectiveItem>(ListItemObject);
-	UpdateObjectiveText(Item->ObjectiveText);
+	
+	if(IsValid(Item))
+	{
+		UpdateObjectiveText(Item->ObjectiveText);
+	}
 }
 
-void UObjectiveView::UpdateObjectiveText(const FString& Objective) const
+void UObjectiveView::UpdateObjectiveText(const FString& Objective)
 {
 	ObjectiveText->SetText(FText::FromString(Objective));
 }

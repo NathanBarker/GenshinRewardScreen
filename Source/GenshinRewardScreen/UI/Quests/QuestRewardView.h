@@ -17,15 +17,19 @@ class GENSHINREWARDSCREEN_API UQuestRewardView : public UCommonUserWidget
 {
 	GENERATED_BODY()
 
-	UPROPERTY(meta=(BindWidget))
-	TObjectPtr<UCommonLazyImage> RewardIcon = nullptr;
-
-	UPROPERTY(meta=(BindWidget))
-	TObjectPtr<UCommonLazyImage> RewardBackground = nullptr;
-
-	UPROPERTY(meta=(BindWidget))
-	TObjectPtr<UTextBlock> RewardAmount = nullptr;
-
 public:
-	void InitializeReward(UTexture2D* Background, UTexture2D* RewardIcon, const int32& Amount) const;
+	void InitializeReward(const TSoftObjectPtr<UTexture2D>& Background,
+	                      const TSoftObjectPtr<UTexture2D>& Icon,
+	                      const int32& Amount);
+
+private:
+
+	UPROPERTY(meta=(BindWidget))
+    TObjectPtr<UCommonLazyImage> RewardIcon = nullptr;
+    
+    UPROPERTY(meta=(BindWidget))
+    TObjectPtr<UCommonLazyImage> RewardBackground = nullptr;
+    
+    UPROPERTY(meta=(BindWidget))
+    TObjectPtr<UTextBlock> RewardAmount = nullptr;
 };

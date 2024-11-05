@@ -24,7 +24,8 @@ UCLASS(Abstract)
 class GENSHINREWARDSCREEN_API UMainScreen : public UCommonActivatableWidget
 {
 	GENERATED_BODY()
-
+public:
+	UMainScreen();
 protected:
 	
 	virtual void NativeConstruct() override;

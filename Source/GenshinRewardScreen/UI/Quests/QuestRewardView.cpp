@@ -5,9 +5,10 @@
 #include "CommonUI/Public/CommonLazyImage.h"
 #include "Components/TextBlock.h"
 
-void UQuestRewardView::InitializeReward(UTexture2D* Background, UTexture2D* Icon, const int32& Amount) const
+void UQuestRewardView::InitializeReward(const TSoftObjectPtr<UTexture2D>& Background,
+                                        const TSoftObjectPtr<UTexture2D>& Icon, const int32& Amount)
 {
-	RewardBackground->SetBrushFromTexture(Background);
-	RewardIcon->SetBrushFromTexture(Icon);
-	RewardAmount->SetText(FText::FromString(FString::FromInt(Amount)));
+	RewardIcon->SetBrushFromLazyTexture(Icon);
+	RewardBackground->SetBrushFromLazyTexture(Background);
+	RewardAmount->SetText(FText::AsNumber(Amount));
 }

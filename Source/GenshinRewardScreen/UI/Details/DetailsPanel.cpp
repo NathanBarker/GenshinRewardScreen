@@ -9,10 +9,25 @@
 
 void UDetailsPanel::InitialiseDetailsPanel(const FDetailsPanelMessage& InMessage)
 {
-	if (IsValid(QuestTitle)) QuestTitle->SetText(InMessage.QuestTitle);
-	if (IsValid(QuestDescription)) QuestDescription->SetText(InMessage.QuestDescription);
-	if (IsValid(QuestProgression)) QuestProgression->SetProgression(InMessage.QuestProgress);
-	if (IsValid(ObjectivesListView)) ObjectivesListView->ClearListItems();
+	if (IsValid(QuestTitle))
+	{
+		QuestTitle->SetText(InMessage.QuestTitle);
+	}
+
+	if (IsValid(QuestDescription))
+	{
+		QuestDescription->SetText(InMessage.QuestDescription);
+	}
+
+	if (IsValid(QuestProgression))
+	{
+		QuestProgression->SetProgression(InMessage.QuestProgress);
+	}
+
+	if (IsValid(ObjectivesListView))
+	{
+		ObjectivesListView->ClearListItems();
+	}
 
 	for (const TPair<FString, int32> Objective : InMessage.ObjectiveDetails)
 	{
@@ -26,13 +41,12 @@ void UDetailsPanel::InitialiseDetailsPanel(const FDetailsPanelMessage& InMessage
 
 void UDetailsPanel::NativeOnDeactivated()
 {
-	Super::NativeOnDeactivated();
-
 	XPReward->SetVisibility(ESlateVisibility::Collapsed);
 	for (UWidget* RewardView : RewardsContainer->GetAllChildren())
 	{
 		RewardView->SetVisibility(ESlateVisibility::Collapsed);
 	}
+	Super::NativeOnDeactivated();
 }
 
 void UDetailsPanel::DisplayRewards(const int32& XPAmount, const TArray<FReward>& Rewards)
@@ -40,18 +54,17 @@ void UDetailsPanel::DisplayRewards(const int32& XPAmount, const TArray<FReward>&
 	ConfigureReward(*XPReward, XP, XPAmount);
 	for (int32 i = 0; i < Rewards.Num(); i++)
 	{
-		if (IsValid(RewardsContainer->GetChildAt(i)))
+		URewardView* RewardView = Cast<URewardView>(RewardsContainer->GetChildAt(i));
+		if (IsValid(RewardTemplate) && !IsValid(RewardView))
 		{
-			URewardView* RewardView = Cast<URewardView>(RewardsContainer->GetChildAt(i));
-			ConfigureReward(*RewardView, Rewards[i].CurrencyType, Rewards[i].CurrencyAmount);
-		}
-		else if(IsValid(RewardTemplate))
-		{
-			URewardView* RewardView = CreateWidget<URewardView>(GetWorld(), RewardTemplate);
-			ConfigureReward(*RewardView, Rewards[i].CurrencyType, Rewards[i].CurrencyAmount);
+			RewardView = CreateWidget<URewardView>(GetWorld(), RewardTemplate);
 			RewardsContainer->AddChild(RewardView);
 		}
-		else UE_LOG(LogTemp, Error, TEXT("Reward view inside details panel failed to be created"));
+		else
+		{
+			UE_LOG(LogTemp, Error, TEXT("Reward view inside details panel failed to be created"));
+		}
+		ConfigureReward(*RewardView, Rewards[i].CurrencyType, Rewards[i].CurrencyAmount);
 	}
 }
 

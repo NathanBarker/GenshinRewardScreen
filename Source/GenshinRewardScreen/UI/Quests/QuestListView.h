@@ -50,7 +50,7 @@ protected:
 	TObjectPtr<UCommonLazyImage> CompletedBg = nullptr;
 
 	UPROPERTY(meta=(BindWidget))
-	TObjectPtr<UQuestProgressionView> WBP_QuestProgression = nullptr;
+	TObjectPtr<UQuestProgressionView> QuestProgression = nullptr;
 
 	UPROPERTY(meta=(BindWidget))
 	TObjectPtr<UHorizontalBox> RewardsContainer;

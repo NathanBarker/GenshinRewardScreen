@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "GenshinRewardScreen/UI/Quests/QuestEntryItem.h"
 #include "GenshinRewardScreen/UI/Quests/QuestRewards.h"
 #include "UIMessagePayloads.generated.h"
 
@@ -31,5 +32,5 @@ struct FClaimMessage
 	GENERATED_BODY()
 
 	UPROPERTY(Transient)
-	TObjectPtr<UObject> QuestItem = nullptr;
+	TObjectPtr<UQuestEntryItem> QuestItem = nullptr;
 };

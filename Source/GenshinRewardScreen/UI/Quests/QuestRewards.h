@@ -10,7 +10,7 @@ struct FReward
 {
 	GENERATED_BODY()
 	
-	TEnumAsByte<ECurrency> CurrencyType = Crystal;
+	ECurrency CurrencyType = Crystal;
 	
 	int CurrencyAmount = 0;
 
