@@ -9,7 +9,9 @@ This project is a quick practise solution, where I create a new Genshin themed r
 ### "Recreate a modified version of Genshin’s Rewards screen using Common UI. The Screen must be navigable and all functionality must be available using either Gamepad or Mouse & Keyboard." 
 
 ## 	$${\color{green}Current:}$$
-![ezgif-5-f589a14656](https://github.com/user-attachments/assets/0c76a282-0859-41a9-910b-6ed04d02af4b)
+![ezgif-5-8173599ffc](https://github.com/user-attachments/assets/246a1426-4bff-404c-9ba3-dba27ea44e06)
+
+
 
 ## $${\color{red}Tasks:}$$
 [feature]
