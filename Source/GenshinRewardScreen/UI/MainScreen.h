@@ -41,9 +41,7 @@ private:
 
 	UPROPERTY()
 	TArray<UCurrencyView*> CurrencyViews;
-
-	UPROPERTY(EditDefaultsOnly)
-	TObjectPtr<UDataTable> QuestDataTable = nullptr;
+	
 
 	UPROPERTY()
 	TArray<FQuest> QuestRows;

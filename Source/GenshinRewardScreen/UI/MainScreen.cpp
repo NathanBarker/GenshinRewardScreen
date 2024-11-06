@@ -2,6 +2,7 @@
 
 #include "MainScreen.h"
 
+#include "GenshinUiSettings.h"
 #include "Components/HorizontalBox.h"
 #include "Components/ListView.h"
 #include "Currency/CurrencyView.h"
@@ -55,6 +56,12 @@ void UMainScreen::NativeOnActivated()
 
 void UMainScreen::GenerateQuestData()
 {
+	const UDataTable* QuestDataTable = UGenshinUiSettings::GetQuestDataTable();
+	if(!IsValid(QuestDataTable))
+	{
+		return;
+	}
+	
 	TArray<FName> RowNames = QuestDataTable->GetRowNames();
 	for (const FName QuestData : RowNames)
 	{
