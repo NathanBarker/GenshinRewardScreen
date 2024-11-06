@@ -8,17 +8,14 @@
 #include "GenshinRewardScreen/HelperClasses/QuestUtilities.h"
 #include "Quests/QuestListView.h"
 
-UMainScreen::UMainScreen() : Super()
-{
-	if (!IsValid(PlayerInventory))
-    {
-    	PlayerInventory = NewObject<UInventory>();
-    }
-}
-
 void UMainScreen::NativeConstruct()
 {
 	Super::NativeConstruct();
+
+	if (!IsValid(PlayerInventory))
+	{
+		PlayerInventory = NewObject<UInventory>();
+	}
 	
 	if (QuestDataObjects.IsEmpty())
 	{
@@ -108,7 +105,7 @@ void UMainScreen::UpdateCurrencyViews(const TArray<FReward>& Rewards)
 		else
 		{
 			UE_LOG(LogTemp, Error,
-			       TEXT("Unable to apply %i to CurrencyView "), Rewards[i].CurrencyType.GetValue());
+			       TEXT("Unable to apply %i to CurrencyView "), Rewards[i].CurrencyType);
 			return;
 		}
 	}
