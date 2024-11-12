@@ -14,5 +14,3 @@ This project is a quick practise solution, where I create a new Genshin themed r
 
 
 ## $${\color{red}Tasks:}$$
-[feature]
-_Claiming Completed Quests_ [https://github.com/user/repo/issues/33](https://github.com/NathanBarker/GenshinRewardScreen/issues/15)
